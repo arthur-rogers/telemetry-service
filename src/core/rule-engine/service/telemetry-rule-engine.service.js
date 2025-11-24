@@ -1,9 +1,12 @@
+//@ts-check
+import '../domain/RuleEngineEntity';
 import { Engine } from 'json-rules-engine';
 
+/** @class */
 export class TelemetryRuleEngine {
   /**
    * @constructor
-   * @param {Array<Object>} rules
+   * @param {Array<any>} rules
    */
   constructor(rules) {
     this._engine = new Engine();
@@ -13,11 +16,32 @@ export class TelemetryRuleEngine {
   }
 
   /**
-   *
-   * @param {IEngineTelemetryData} data
-   * @returns {Promise<Object>}
+   * @param {import('../domain/RuleEngineEntity').IEngineTelemetryData} data
+   * @returns {Promise<import('../domain/RuleEngineEntity').IRuleEngineExecutionResult>}
    */
   async runEngine(data) {
-    return this._engine.run(data);
+    const { events } = await this._engine.run(data);
+    if (!events) {
+      return {
+        result: 'VALID',
+      };
+    } else {
+      const rejected = events.find((event) => event.type === 'REJECTED');
+      const manualReview = events.find(
+        (event) => event.type === 'MANUAL_REVIEW'
+      );
+      if (rejected) {
+        return {
+          result: 'REJECTED',
+          reason: rejected.params?.reason,
+          effectedBy: rejected.params?.effectedBy,
+        };
+      }
+      return {
+        result: 'MANUAL_REVIEW',
+        reason: manualReview?.params?.reason,
+        effectedBy: manualReview?.params?.effectedBy,
+      };
+    }
   }
 }

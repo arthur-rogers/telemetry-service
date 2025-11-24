@@ -4,6 +4,7 @@
     "includePattern": ".js$",
     "exculdePattern": "(node_modules/|docs)"
   },
+  "sourceType": "module",
   "plugins": ["plugins/markdown"],
   "templates": {
     "cleverLinks": true,

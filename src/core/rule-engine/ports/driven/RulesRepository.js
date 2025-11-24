@@ -1,15 +1,15 @@
+//@ts-check
 /**
  * Abstract class describing GetRules port of RuleEngin
- * @class RunRulesPort
+ * @interface RulesRepositoryPort
  */
 
-export class GetRulesPort {
+export class RulesRepositoryPort {
   /**
    * @abstract
-   * @param {Object} data
    * @returns {Promise<Array<Object>>}
    */
-  async getRules(data) {
+  async getRules() {
     throw new Error(`Abstract method must be implemented!`);
   }
 }

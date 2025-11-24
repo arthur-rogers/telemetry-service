@@ -1,3 +1,4 @@
+//@ts-check
 /**
  * @module RuleEngineDomain
  */
@@ -24,14 +25,21 @@
  */
 
 /**
- * @typedef {'REJECTED' | 'MANUAL_REVIEW'} RuleEngineResultType
+ * @typedef {'REJECTED' | 'MANUAL_REVIEW' | 'VALID'} RuleEngineResultType
  */
+
+/** @type {Record<string, RuleEngineResultType>} */
+export const RuleResults = {
+  Valid: 'VALID',
+  Rejected: 'REJECTED',
+  Manual: 'MANUAL_REVIEW',
+};
 
 /**
  * @typedef {Object} IRuleEngineExecutionResult
- * @property {RuleEngineResult} result
- * @property {string} reason A brief descriprion of what caues the status
- * @property {Array<string>} effectedBy List of metrics which effected the result
+ * @property {RuleEngineResultType} result
+ * @property {string} [reason] A brief descriprion of what caues the status
+ * @property {Array<string>} [effectedBy] List of metrics which effected the result
  */
 
 export {};

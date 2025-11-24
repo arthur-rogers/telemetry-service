@@ -1,0 +1,37 @@
+//@ts-check
+/**
+ * @import {IEngineTelemetryData} from "../domain/RuleEngineEntity"
+ */
+import { RuleResults } from '../domain/RuleEngineEntity';
+import { RulesRepositoryPort } from '../ports/driven/RulesRepository';
+import { RunRulesPort } from '../ports/driving/RunRulesPort';
+import { TelemetryRuleEngine } from '../service/telemetry-rule-engine.service';
+
+/**
+ * @class RunRulesUseCase
+ * @extends {RunRulesPort}
+ */
+export class RunRulesUseCase extends RunRulesPort {
+  /**
+   *
+   * @param {RulesRepositoryPort} rulesRepo
+   */
+  constructor(rulesRepo) {
+    super();
+    this._repository = rulesRepo;
+  }
+
+  /**
+   * @override
+   * @param {IEngineTelemetryData} data
+   */
+  async runRules(data) {
+    try {
+      const rules = await this._repository.getRules();
+      const engine = new TelemetryRuleEngine(rules);
+      return await engine.runEngine(data);
+    } catch (err) {
+      throw new Error(String(err));
+    }
+  }
+}

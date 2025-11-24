@@ -1,8 +1,13 @@
+//@ts-check
 /**
- * Abstract class describing RunRules port of RuleEngin
- * @class RunRulesPort
+ * @import {IEngineTelemetryData} from '../../domain/RuleEngineEntity'
+ * @import {IRuleEngineExecutionResult} from '../../domain/RuleEngineEntity'
  */
 
+/**
+ * Abstract class describing RunRules port of RuleEngin
+ * @interface IRunRulesPort
+ */
 export class RunRulesPort {
   /**
    * @abstract
