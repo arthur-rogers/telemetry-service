@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Test assignment for JustSnap",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "docs": "jsdoc -c jsdoc.json"
+    "docs": "jsdoc -c jsdoc.json",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,10 @@
   },
   "homepage": "https://github.com/arthur-rogers/telemetry-service#readme",
   "devDependencies": {
+    "jest": "^30.2.0",
     "jsdoc": "^4.0.5"
+  },
+  "dependencies": {
+    "json-rules-engine": "^7.3.1"
   }
 }
