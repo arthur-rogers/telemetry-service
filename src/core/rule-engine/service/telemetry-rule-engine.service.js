@@ -1,5 +1,7 @@
 //@ts-check
-import '../domain/RuleEngineEntity';
+/**
+ * @import {IEngineTelemetryData, IRuleEngineExecutionResult} from '../domain/RuleEngineEntity'
+ */
 import { Engine } from 'json-rules-engine';
 
 /** @class */
@@ -16,8 +18,8 @@ export class TelemetryRuleEngine {
   }
 
   /**
-   * @param {import('../domain/RuleEngineEntity').IEngineTelemetryData} data
-   * @returns {Promise<import('../domain/RuleEngineEntity').IRuleEngineExecutionResult>}
+   * @param {IEngineTelemetryData} data
+   * @returns {Promise<IRuleEngineExecutionResult>}
    */
   async runEngine(data) {
     const { events } = await this._engine.run(data);
