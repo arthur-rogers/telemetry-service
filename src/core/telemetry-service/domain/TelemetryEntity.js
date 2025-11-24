@@ -1,6 +1,22 @@
-//@ts-check
 /**
- * @typedef {Object} IEngineTelemetryData
+ * @typedef ILocation
+ * @property {number} lat
+ * @property {number} lng
+ */
+
+/**
+ * @typedef {Object} ITelemetry
+ * @property {string} vehicleId
+ * @property {string} timestamp
+ * @property {number} speed
+ * @property {number} engineTemp
+ * @property {number} fuelLevel
+ * @property {ILocation} location
+ */
+
+/**
+ * @typedef {Object} ITelemetryAggregated
+ * @property {string} vehicleId
  * @property {number} speed Speed in kmph
  * @property {number} prevSpeed Speed from previous record in kmph
  * @property {number} avgSpeed Average speed in kmph
@@ -20,22 +36,22 @@
  * @property {number} lng Longitude
  */
 
+// TODO: think about adding some sort of session id to be able to analyze telemetry over specific intervals and rides
 /**
- * @typedef {'REJECTED' | 'MANUAL_REVIEW' | 'VALID'} RuleEngineResultType
- */
-
-/**@readonly */
-export const RuleResults = Object.freeze({
-  Valid: 'VALID',
-  Rejected: 'REJECTED',
-  Manual: 'MANUAL_REVIEW',
-});
-
-/**
- * @typedef {Object} IRuleEngineExecutionResult
- * @property {RuleEngineResultType} result
- * @property {string} [reason] A brief descriprion of what caues the status
- * @property {Array<string>} [effectedBy] List of metrics which effected the result
+ * @typedef {Object} ITelemetryPersistent
+ * @property {string} vehicleId
+ * @property {string} timestamp
+ * @property {number} speed
+ * @property {number} engineTemp
+ * @property {number} fuelLevel
+ * @property {number} lat
+ * @property {number} lng
+ * @property {number} avgSpeed
+ * @property {number} avgEngineTemp
+ * @property {number} distanceTraveledMeters
+ * @property {string} status VALID, REJECTED or MANUAL_REVIEW
+ * @property {string} [reason]
+ * @property {Array<string>} [effectedBy]
  */
 
 export {};
