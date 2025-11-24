@@ -1,0 +1,19 @@
+{
+  "name": "telemetry-service",
+  "version": "1.0.0",
+  "description": "Test assignment for JustSnap",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arthur-rogers/telemetry-service.git"
+  },
+  "author": "Artem Ryndin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arthur-rogers/telemetry-service/issues"
+  },
+  "homepage": "https://github.com/arthur-rogers/telemetry-service#readme"
+}
