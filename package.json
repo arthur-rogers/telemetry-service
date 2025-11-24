@@ -4,7 +4,7 @@
   "description": "Test assignment for JustSnap",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docs": "jsdoc -c jsdoc.json"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/arthur-rogers/telemetry-service/issues"
   },
-  "homepage": "https://github.com/arthur-rogers/telemetry-service#readme"
+  "homepage": "https://github.com/arthur-rogers/telemetry-service#readme",
+  "devDependencies": {
+    "jsdoc": "^4.0.5"
+  }
 }
