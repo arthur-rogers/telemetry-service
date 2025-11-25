@@ -13,8 +13,8 @@
  * @property {number} fuelLevelChangeRate Fuel change delta (measured in percents)
  * @property {number} distanceTraveledMeters Distance traveled since previous telemetry record
  * @property {number} maxPossibleDistanceMeters Possible max distance according to speed metrics
- * @property {number} timestamp Timestamp when current metric was created by sender
- * @property {number} prevTimestamp Timestamp of previous metric creation
+ * @property {number} timestamp Timestamp when current metric was created by sender (ms)
+ * @property {number} prevTimestamp Timestamp of previous metric creation (ms)
  * @property {number} timestampAgeSec Difference between timestamps in seconds to invalidate too old or inconsistent data
  * @property {number} lat Latitude
  * @property {number} lng Longitude

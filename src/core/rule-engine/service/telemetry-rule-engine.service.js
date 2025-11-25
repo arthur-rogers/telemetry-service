@@ -23,27 +23,30 @@ export class TelemetryRuleEngine {
    */
   async runEngine(data) {
     const { events } = await this._engine.run(data);
-    if (!events) {
-      return {
-        result: 'VALID',
-      };
-    } else {
-      const rejected = events.find((event) => event.type === 'REJECTED');
-      const manualReview = events.find(
+    if (events.length) {
+      const rejected = events.filter((event) => event.type === 'REJECTED');
+      const manualReview = events.filter(
         (event) => event.type === 'MANUAL_REVIEW'
       );
-      if (rejected) {
+      if (rejected.length) {
         return {
           result: 'REJECTED',
-          reason: rejected.params?.reason,
-          effectedBy: rejected.params?.effectedBy,
+          reason: rejected[0].params?.reason,
+          // @ts-ignore
+          effectedBy: rejected.map((item) => item.params.effectedBy),
         };
       }
-      return {
-        result: 'MANUAL_REVIEW',
-        reason: manualReview?.params?.reason,
-        effectedBy: manualReview?.params?.effectedBy,
-      };
+      if (manualReview.length) {
+        return {
+          result: 'MANUAL_REVIEW',
+          reason: manualReview[0].params?.reason,
+          // @ts-ignore
+          effectedBy: manualReview.map((item) => item.params.effectedBy),
+        };
+      }
     }
+    return {
+      result: 'VALID',
+    };
   }
 }

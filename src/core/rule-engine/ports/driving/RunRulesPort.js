@@ -5,8 +5,9 @@
  */
 
 /**
- * Abstract class describing RunRules port of RuleEngin
- * @interface IRunRulesPort
+ * Abstract class describing RunRules port of RuleEngine
+ * @class IRunRulesPort
+ * @abstract
  */
 export class RunRulesPort {
   /**

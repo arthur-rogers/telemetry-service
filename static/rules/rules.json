@@ -36,6 +36,11 @@
           "fact": "engineTemp",
           "operator": "greaterThan",
           "value": 100
+        },
+        {
+          "fact": "avgSpeed",
+          "operator": "greaterThan",
+          "value": 0
         }
       ]
     },
@@ -43,7 +48,31 @@
       "type": "MANUAL_REVIEW",
       "params": {
         "effectedBy": "ENGINE_TEMP",
-        "reason": "Possible engine overheating"
+        "reason": "Possible engine overheating. Check gear and revs"
+      }
+    }
+  },
+  {
+    "name": "engine-overheat-stationary",
+    "conditions": {
+      "all": [
+        {
+          "fact": "engineTemp",
+          "operator": "greaterThan",
+          "value": 90
+        },
+        {
+          "fact": "avgSpeed",
+          "operator": "equal",
+          "value": 0
+        }
+      ]
+    },
+    "event": {
+      "type": "REJECTED",
+      "params": {
+        "effectedBy": "ENGINE_TEMP",
+        "reason": "Engine temperature rises above 90C while vehicle is stationary. Check your radiator or re-park in the shadow"
       }
     }
   },
@@ -62,7 +91,7 @@
       "type": "REJECTED",
       "params": {
         "effectedBy": "FUEL_LEVEL",
-        "reason": "Fuel level increase by more than 20% while vechicle is in motion"
+        "reason": "Fuel level increase by more than 20% while vechicle is in motion. Are you a fighter jet refueling mid-air?"
       }
     }
   },
@@ -110,6 +139,30 @@
     }
   },
   {
+    "name": "fuel-level-change-high-speed-rule",
+    "conditions": {
+      "all": [
+        {
+          "fact": "fuelLevelChangeRate",
+          "operator": "greaterThan",
+          "value": 0
+        },
+        {
+          "fact": "speed",
+          "operator": "greaterThanInclusive",
+          "value": 120
+        }
+      ]
+    },
+    "event": {
+      "type": "REJECTED",
+      "params": {
+        "effectedBy": "FUEL_LEVEL",
+        "reason": "Fuel can't increase in high speeds (unless you're flying a fighter jet refueling mid-air)"
+      }
+    }
+  },
+  {
     "name": "speed-range-rule",
     "conditions": {
       "any": [
@@ -136,7 +189,7 @@
   {
     "name": "speed-spike",
     "conditions": {
-      "any": [
+      "all": [
         {
           "fact": "speedChange",
           "operator": "greaterThan",
@@ -167,7 +220,7 @@
       "type": "REJECTED",
       "params": {
         "effectedBy": "LOCATION",
-        "reason": "Location data out of range"
+        "reason": "Location data out of range. Teleportation is prohibited in this airspace"
       }
     }
   },
@@ -196,7 +249,7 @@
       "type": "REJECTED",
       "params": {
         "effectedBy": "LOCATION",
-        "reason": "Location change while vehicle is stationary"
+        "reason": "Location change while vehicle is stationary. Teleportation is prohibited in this airspace"
       }
     }
   },
