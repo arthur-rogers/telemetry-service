@@ -35,4 +35,49 @@ describe('Telemetry rules engine test', () => {
     expect(result.prevTimestamp).toBeNull();
     expect(result.timestampAgeSec).toEqual(20);
   });
+
+  it('Should set new state when no previous telemetry passed', async () => {
+    const currentDate = new Date(Date.now() - 20000);
+    const newData = {
+      vehicleId: 'VH-2231',
+      timestamp: currentDate,
+      speed: 92,
+      engineTemp: 87,
+      fuelLevel: 61,
+      location: {
+        lat: 41.01224,
+        lng: 28.97602,
+      },
+    };
+  });
+
+  it('Should set new state when no previous telemetry passed', async () => {
+    const currentDate = new Date(Date.now() - 20000);
+    const newData = {
+      vehicleId: 'VH-2231',
+      timestamp: currentDate,
+      speed: 92,
+      engineTemp: 87,
+      fuelLevel: 61,
+      location: {
+        lat: 41.01224,
+        lng: 28.97602,
+      },
+    };
+  });
+
+  it('Should set new state when no previous telemetry passed', async () => {
+    const currentDate = new Date(Date.now() - 20000);
+    const newData = {
+      vehicleId: 'VH-2231',
+      timestamp: currentDate,
+      speed: 92,
+      engineTemp: 87,
+      fuelLevel: 61,
+      location: {
+        lat: 41.01224,
+        lng: 28.97602,
+      },
+    };
+  });
 });

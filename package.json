@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/arthur-rogers/telemetry-service#readme",
   "devDependencies": {
+    "@faker-js/faker": "^10.1.0",
     "jest": "^30.2.0",
     "jsdoc": "^4.0.5"
   },
