@@ -9,6 +9,7 @@ describe('RunRules usecase test', () => {
   });
   it('Should return result with correct structure', async () => {
     const res = await useCase.runRules({
+      isNewState: true,
       speed: 85,
       prevSpeed: 0,
       avgSpeed: 0,
