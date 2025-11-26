@@ -1,3 +1,4 @@
+//@ts-check
 /**
  * @typedef ILocation
  * @property {number} lat

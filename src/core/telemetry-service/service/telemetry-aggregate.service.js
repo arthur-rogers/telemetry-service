@@ -26,11 +26,11 @@ export class TelemetryAggregateService {
       lng: location.lng,
       speed: speed,
       prevSpeed: prevAndAvg?.prevSpeed || 0,
-      avgSpeed: prevAndAvg?.avgSpeed || 0,
-      speedChange: prevAndAvg?.speedChange || 0,
+      avgSpeed: prevAndAvg?.avgSpeed || speed,
+      speedChange: prevAndAvg?.speedChange || speed,
       engineTemp: engineTemp,
       prevEngineTemp: prevAndAvg?.prevEngineTemp || 0,
-      avgEngineTemp: prevAndAvg?.avgEngineTemp || 0,
+      avgEngineTemp: prevAndAvg?.avgEngineTemp || engineTemp,
       fuelLevel: fuelLevel,
       prevFuelLevel: prevAndAvg?.prevFuelLevel || 0,
       fuelLevelChangeRate: prevAndAvg?.fuelLevelChangeRate || 0,
@@ -82,8 +82,9 @@ export class TelemetryAggregateService {
       prevReadings,
       newData
     );
-    const timePassed =
-      new Date(newData.timestamp).valueOf() - new Date(prevTimestamp).valueOf();
+    const timePassed = Math.abs(
+      new Date(newData.timestamp).valueOf() - new Date(prevTimestamp).valueOf()
+    );
     const { distanceTraveledMeters, maxPossibleDistanceMeters } =
       this._getDistanceData(prevReadings, newData, avgSpeed, timePassed);
     return {
@@ -181,15 +182,15 @@ export class TelemetryAggregateService {
 
     const { lat, lng } = newData.location;
     const { lat: prevLat, lng: prevLng } = validReadings[0];
-    const distanceTraveledMeters = Math.abs(
+    const distanceTraveledMeters = Number(
       haversineDistance(
         { latitude: lat, longitude: lng },
         { latitude: prevLat, longitude: prevLng }
-      )
+      ).toPrecision(3)
     );
     const millisecToHours = this._msToHour(timePassed, 15);
     const maxPossibleDistanceMeters = Number(
-      (avgSpeed * 1000 * millisecToHours).toFixed(4)
+      (avgSpeed * 1000 * millisecToHours).toPrecision(3)
     );
 
     return {
