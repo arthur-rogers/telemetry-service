@@ -5,7 +5,7 @@
 
 /** @class TelemetryAggregateService */
 import haversineDistance from 'haversine-distance';
-import { MissingValidTelemetryError } from './errors';
+import { MissingValidTelemetryError } from '../../errors/TelemetryError';
 export class TelemetryAggregateService {
   /**
    *

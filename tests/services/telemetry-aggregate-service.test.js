@@ -1,4 +1,4 @@
-import { MissingValidTelemetryError } from '../../src/core/telemetry-service/service/errors';
+import { MissingValidTelemetryError } from '../../src/core/errors/TelemetryError';
 import { TelemetryAggregateService } from '../../src/core/telemetry-service/service/telemetry-aggregate.service';
 import { faker } from '@faker-js/faker';
 describe('Telemetry rules engine test', () => {
