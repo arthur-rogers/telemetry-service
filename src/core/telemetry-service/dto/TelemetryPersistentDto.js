@@ -68,10 +68,11 @@ export class TelemetryPersistentDTO {
 
     if (
       typeof data.timestamp !== 'string' ||
-      isNaN(Date.parse(data.timestamp))
+      isNaN(new Date(data.timestamp).getTime())
     ) {
+      console.debug(`typeof timestamp: ${typeof data.timestamp}`);
       throw new DTOError(
-        'timestamp must be a valid ISO string',
+        `timestamp must be a valid ISO date string. received: ${data.timestamp}`,
         this.constructor.name
       );
     }

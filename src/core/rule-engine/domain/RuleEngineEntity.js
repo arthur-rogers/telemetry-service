@@ -1,6 +1,7 @@
 //@ts-check
 /**
- * @typedef {Object} IEngineTelemetryData
+ * @typedef {Object} ITelemetryEngineData
+ * @property {boolean | string} isNewState
  * @property {number} speed Speed in kmph
  * @property {number} prevSpeed Speed from previous record in kmph
  * @property {number} avgSpeed Average speed in kmph
@@ -16,8 +17,6 @@
  * @property {number} timestamp Timestamp when current metric was created by sender (ms)
  * @property {number} prevTimestamp Timestamp of previous metric creation (ms)
  * @property {number} timestampAgeSec Difference between timestamps in seconds to invalidate too old or inconsistent data
- * @property {number} lat Latitude
- * @property {number} lng Longitude
  */
 
 /**

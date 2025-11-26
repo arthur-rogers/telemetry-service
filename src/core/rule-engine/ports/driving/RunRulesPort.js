@@ -1,6 +1,6 @@
 //@ts-check
 /**
- * @import {IEngineTelemetryData} from '../../domain/RuleEngineEntity'
+ * @import {ITelemetryEngineData} from '../../domain/RuleEngineEntity'
  * @import {IRuleEngineExecutionResult} from '../../domain/RuleEngineEntity'
  */
 
@@ -12,7 +12,7 @@
 export class RunRulesPort {
   /**
    * @abstract
-   * @param {IEngineTelemetryData} data
+   * @param {ITelemetryEngineData} data
    * @returns {Promise<IRuleEngineExecutionResult>}
    */
   async runRules(data) {

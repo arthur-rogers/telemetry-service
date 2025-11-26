@@ -1,4 +1,6 @@
 import { MissingValidTelemetryError } from '../../src/core/errors/TelemetryError';
+import { TelemetryDTO } from '../../src/core/telemetry-service/dto/TelemetryDto';
+import { TelemetryPersistentDTO } from '../../src/core/telemetry-service/dto/TelemetryPersistentDto';
 import { TelemetryAggregateService } from '../../src/core/telemetry-service/service/telemetry-aggregate.service';
 import { faker } from '@faker-js/faker';
 describe('Telemetry rules engine test', () => {
@@ -64,14 +66,14 @@ describe('Telemetry rules engine test', () => {
 });
 
 function createInitData(initCoordinates, vehicleId) {
-  return {
+  return new TelemetryDTO({
     vehicleId,
     speed: faker.number.int({ min: 1, max: 5 }),
     engineTemp: faker.number.int({ min: 30, max: 40 }),
     fuelLevel: faker.number.float({ min: 20, max: 99 }),
     timestamp: new Date().toISOString(),
     location: initCoordinates,
-  };
+  });
 }
 
 function generateNextTelemetryAccelerate(prev) {
@@ -81,7 +83,7 @@ function generateNextTelemetryAccelerate(prev) {
     radius: 0.1,
     isMetric: true,
   });
-  return {
+  return new TelemetryDTO({
     vehicleId: prev.vehicleId,
     speed: faker.number.int({
       min: prev.speed,
@@ -96,33 +98,26 @@ function generateNextTelemetryAccelerate(prev) {
       min: prev.fuelLevel - prev.fuelLevel * 0.01,
       max: prev.fuelLevel,
     }),
-    timestamp: new Date(new Date(prev.timestamp).valueOf() + 15000),
+    timestamp: new Date(
+      new Date(prev.timestamp).valueOf() + 15000
+    ).toISOString(),
     location: { lat, lng },
-  };
+  });
 }
 
 function generatePreviousRejectedTelemetry() {
-  return {
-    isNewState: true,
+  return new TelemetryPersistentDTO({
     vehicleId: 'VH-2231',
     lat: 41.01224,
     lng: 28.97602,
     speed: 2,
-    prevSpeed: 0,
-    avgSpeed: 2,
-    speedChange: 2,
     engineTemp: 30,
-    prevEngineTemp: 0,
-    avgEngineTemp: 30,
     fuelLevel: 37.544232599473595,
-    prevFuelLevel: 0,
-    fuelLevelChangeRate: 0,
+    avgSpeed: 2,
+    avgEngineTemp: 30,
     distanceTraveledMeters: 0,
-    maxPossibleDistanceMeters: 0,
     timestamp: '2025-11-26T19:15:11.284Z',
-    prevTimestamp: null,
-    timestampAgeSec: 0,
     status: 'MANUAL_REVIEW',
     effectedBy: ['TIMESTAMP', 'SPEED', 'ENGINE_TEMP', 'FUEL_LEVEL', 'LOCATION'],
-  };
+  });
 }

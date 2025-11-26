@@ -44,10 +44,10 @@ export class TelemetryDTO {
 
     if (
       typeof data.timestamp !== 'string' ||
-      isNaN(Date.parse(data.timestamp))
+      isNaN(new Date(data.timestamp).getTime())
     ) {
       throw new DTOError(
-        `timestamp must be a valid ISO string`,
+        `timestamp must be a valid ISO date string. received: ${data.timestamp}`,
         this.constructor.name
       );
     }
