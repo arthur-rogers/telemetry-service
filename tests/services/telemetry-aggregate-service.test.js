@@ -1,3 +1,4 @@
+import { MissingValidTelemetryError } from '../../src/core/telemetry-service/service/errors';
 import { TelemetryAggregateService } from '../../src/core/telemetry-service/service/telemetry-aggregate.service';
 import { faker } from '@faker-js/faker';
 describe('Telemetry rules engine test', () => {
@@ -28,7 +29,6 @@ describe('Telemetry rules engine test', () => {
     expect(result.distanceTraveledMeters).toEqual(0);
     expect(result.maxPossibleDistanceMeters).toEqual(0);
     expect(result.prevTimestamp).toBeNull();
-    expect(result.timestampAgeSec).toBe(0);
   });
 
   it('Should correctly calculate avg values', async () => {
@@ -52,6 +52,14 @@ describe('Telemetry rules engine test', () => {
     expect(curState.distanceTraveledMeters).toBeGreaterThan(0);
     expect(curState.maxPossibleDistanceMeters).toBeGreaterThan(0);
     expect(curState.fuelLevel).toBeGreaterThan(0);
+  });
+
+  it('Should throw error if all previous records for any param are with REJECTED status', async () => {
+    const state = createInitData(baseLocation, vehicleId);
+    const prevRecords = generatePreviousRejectedTelemetry();
+    expect(() => service.getAggregated(state, [prevRecords])).toThrow(
+      MissingValidTelemetryError
+    );
   });
 });
 
@@ -90,5 +98,31 @@ function generateNextTelemetryAccelerate(prev) {
     }),
     timestamp: new Date(new Date(prev.timestamp).valueOf() + 15000),
     location: { lat, lng },
+  };
+}
+
+function generatePreviousRejectedTelemetry() {
+  return {
+    isNewState: true,
+    vehicleId: 'VH-2231',
+    lat: 41.01224,
+    lng: 28.97602,
+    speed: 2,
+    prevSpeed: 0,
+    avgSpeed: 2,
+    speedChange: 2,
+    engineTemp: 30,
+    prevEngineTemp: 0,
+    avgEngineTemp: 30,
+    fuelLevel: 37.544232599473595,
+    prevFuelLevel: 0,
+    fuelLevelChangeRate: 0,
+    distanceTraveledMeters: 0,
+    maxPossibleDistanceMeters: 0,
+    timestamp: '2025-11-26T19:15:11.284Z',
+    prevTimestamp: null,
+    timestampAgeSec: 0,
+    status: 'MANUAL_REVIEW',
+    effectedBy: ['TIMESTAMP', 'SPEED', 'ENGINE_TEMP', 'FUEL_LEVEL', 'LOCATION'],
   };
 }

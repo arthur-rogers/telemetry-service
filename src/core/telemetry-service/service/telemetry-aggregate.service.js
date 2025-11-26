@@ -5,6 +5,7 @@
 
 /** @class TelemetryAggregateService */
 import haversineDistance from 'haversine-distance';
+import { MissingValidTelemetryError } from './errors';
 export class TelemetryAggregateService {
   /**
    *
@@ -231,7 +232,7 @@ export class TelemetryAggregateService {
    * @returns {Array<ITelemetryPersistent>}
    */
   _getValidReadingsByType(prevReadings, type) {
-    return prevReadings
+    const readings = prevReadings
       .filter(
         (r) =>
           r.status === 'VALID' ||
@@ -241,6 +242,12 @@ export class TelemetryAggregateService {
         (a, b) =>
           new Date(a.timestamp).valueOf() - new Date(b.timestamp).valueOf()
       );
+    if (!readings || !readings.length)
+      throw new MissingValidTelemetryError(
+        `No previous valid telemetry for: ${type}`,
+        type
+      );
+    return readings;
   }
 
   /**
