@@ -110,7 +110,9 @@ export class TelemetryAggregateService {
    */
   _getSpeedData(prevReadings, newData) {
     const validReadings = this._getValidReadingsByType(prevReadings, 'SPEED');
-    const speedChange = newData.speed - validReadings[0].speed;
+    const speedChange = validReadings.length
+      ? newData.speed - validReadings[0].speed
+      : 0;
     const avgSpeed = this._getAverage(
       [...validReadings, newData].map((r) => r.speed)
     );

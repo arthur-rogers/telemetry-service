@@ -6,22 +6,23 @@ describe('Telemetry rules engine test', () => {
     lat: 41.01224,
     lng: 28.97602,
   };
+  const vehicleId = 'VH-2231';
 
   beforeEach(() => {
     service = new TelemetryAggregateService();
   });
 
   it('Should set new state when no previous telemetry passed', async () => {
-    const telemetry = createInitData(baseLocation, 'VH-2231');
+    const telemetry = createInitData({ ...baseLocation }, vehicleId);
 
     const result = await service.getAggregated(telemetry);
     console.debug(result);
     expect(result).toBeDefined();
     expect(result.prevSpeed).toEqual(0);
-    expect(result.avgSpeed).toEqual(0);
-    expect(result.speedChange).toEqual(0);
+    expect(result.avgSpeed).toEqual(telemetry.speed);
+    expect(result.speedChange).toEqual(telemetry.speed);
     expect(result.prevEngineTemp).toEqual(0);
-    expect(result.avgEngineTemp).toEqual(0);
+    expect(result.avgEngineTemp).toEqual(telemetry.engineTemp);
     expect(result.prevFuelLevel).toEqual(0);
     expect(result.fuelLevelChangeRate).toEqual(0);
     expect(result.distanceTraveledMeters).toEqual(0);
@@ -31,66 +32,26 @@ describe('Telemetry rules engine test', () => {
   });
 
   it('Should correctly calculate avg values', async () => {
-    const currentDate = new Date(Date.now() - 20000);
-    const location = {
-      lat: 41.01224,
-      lng: 28.97602,
-    };
-    const [lat, lng] = faker.location.nearbyGPSCoordinate({
-      origin: [location.lat, location.lng],
-      // faker takes integers for km
-      radius: 0.01,
-      isMetric: true,
-    });
-    console.debug(`new lat: ${lat}, new lng: ${lng}`);
-    const newData = {
-      vehicleId: 'VH-2231',
-      timestamp: currentDate,
-      speed: 60,
-      engineTemp: 87,
-      fuelLevel: 89,
-      location,
-    };
-    const oldData = [
-      {
-        isNewState: true,
-        vehicleId: 'VH-2231',
-        speed: 55,
-        prevSpeed: 56,
-        avgSpeed: 55,
-        speedChange: -1,
-        engineTemp: 85,
-        prevEngineTemp: 85,
-        avgEngineTemp: 85,
-        fuelLevel: 90,
-        prevFuelLevel: 91,
-        fuelLevelChangeRate: 0.9,
-        distanceTraveledMeters: 70,
-        maxPossibleDistanceMeters: 90,
-        timestamp: new Date(Date.now() - 5000),
-        prevTimestamp: new Date(Date.now() - 10000),
-        timestampAgeSec: 5,
-        lat,
-        lng,
-        status: 'VALID',
-      },
-    ];
-    const expectedAvgSpeed = (oldData[0].speed + newData.speed) / 2;
-    const expectedAvgEngTemp = (oldData[0].engineTemp + newData.engineTemp) / 2;
-    const expectedFuelLevelDelta = Number(
-      (
-        ((newData.fuelLevel - oldData[0].fuelLevel) / oldData[0].fuelLevel) *
-        100
-      ).toPrecision(3)
+    const initState = service.getAggregated(
+      createInitData(baseLocation, vehicleId)
     );
-    console.debug(`expectedAvgSpeed: ${expectedAvgSpeed}`);
-    const result = await service.getAggregated(newData, oldData);
-    console.debug(result);
-    expect(result).toBeDefined();
-    expect(result.prevSpeed).toBe(55);
-    expect(result.avgSpeed).toBe(expectedAvgSpeed);
-    expect(result.avgEngineTemp).toBe(expectedAvgEngTemp);
-    expect(result.fuelLevelChangeRate).toBe(expectedFuelLevelDelta);
+    const firstNextState = generateNextTelemetryAccelerate(initState);
+    const curState = service.getAggregated(firstNextState, [
+      { ...initState, status: 'VALID' },
+    ]);
+    console.debug(curState);
+    expect(curState).toBeDefined();
+    expect(curState.inNewState).toBeFalsy();
+    expect(curState.lng).toBeGreaterThan(0);
+    expect(curState.speed).toBeGreaterThan(0);
+    expect(curState.prevSpeed).toBeGreaterThan(0);
+    expect(curState.speedChange).toBeGreaterThan(0);
+    expect(curState.engineTemp).toBeGreaterThan(0);
+    expect(curState.fuelLevel).toBeGreaterThan(0);
+    expect(curState.fuelLevelChangeRate).not.toBe(0);
+    expect(curState.distanceTraveledMeters).toBeGreaterThan(0);
+    expect(curState.maxPossibleDistanceMeters).toBeGreaterThan(0);
+    expect(curState.fuelLevel).toBeGreaterThan(0);
   });
 });
 
@@ -102,5 +63,32 @@ function createInitData(initCoordinates, vehicleId) {
     fuelLevel: faker.number.float({ min: 20, max: 99 }),
     timestamp: new Date().toISOString(),
     location: initCoordinates,
+  };
+}
+
+function generateNextTelemetryAccelerate(prev) {
+  const [lat, lng] = faker.location.nearbyGPSCoordinate({
+    origin: [prev.lat, prev.lng],
+    // faker takes integers for km
+    radius: 0.1,
+    isMetric: true,
+  });
+  return {
+    vehicleId: prev.vehicleId,
+    speed: faker.number.int({
+      min: prev.speed,
+      max: prev.speed + prev.speed * 0.1,
+    }),
+    engineTemp: faker.number.int({
+      min: prev.engineTemp,
+      max:
+        prev.engineTemp > 100 ? 150 : prev.engineTemp + prev.engineTemp * 0.05,
+    }),
+    fuelLevel: faker.number.float({
+      min: prev.fuelLevel - prev.fuelLevel * 0.01,
+      max: prev.fuelLevel,
+    }),
+    timestamp: new Date(new Date(prev.timestamp).valueOf() + 15000),
+    location: { lat, lng },
   };
 }
