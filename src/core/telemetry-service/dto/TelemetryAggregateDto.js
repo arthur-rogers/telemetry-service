@@ -6,7 +6,7 @@
 import { DTOError } from '../../errors/DtoError';
 
 /**
- * @class TelemetryAggregatedDTO
+ * @implements {ITelemetryAggregated}
  */
 export class TelemetryAggregatedDTO {
   /**
@@ -44,6 +44,25 @@ export class TelemetryAggregatedDTO {
         );
       }
     }
-    Object.assign(this, data);
+
+    this.isNewState = data.isNewState;
+    this.vehicleId = data.vehicleId;
+    this.speed = data.speed;
+    this.prevSpeed = data.prevSpeed;
+    this.avgSpeed = data.avgSpeed;
+    this.speedChange = data.speedChange;
+    this.engineTemp = data.engineTemp;
+    this.prevEngineTemp = data.prevEngineTemp;
+    this.avgEngineTemp = data.avgEngineTemp;
+    this.fuelLevel = data.fuelLevel;
+    this.prevFuelLevel = data.prevFuelLevel;
+    this.fuelLevelChangeRate = data.fuelLevelChangeRate;
+    this.distanceTraveledMeters = data.distanceTraveledMeters;
+    this.maxPossibleDistanceMeters = data.maxPossibleDistanceMeters;
+    this.timestamp = data.timestamp;
+    this.prevTimestamp = data.prevTimestamp;
+    this.timestampAgeSec = data.timestampAgeSec;
+    this.lng = data.lng;
+    this.lat = data.lat;
   }
 }

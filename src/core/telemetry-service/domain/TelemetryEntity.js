@@ -52,6 +52,8 @@
  * @property {number} avgEngineTemp
  * @property {number} distanceTraveledMeters
  * @property {string} status VALID, REJECTED or MANUAL_REVIEW
+ * @property {number} lat
+ * @property {number} lng
  * @property {string} [reason]
  * @property {Array<string>} [effectedBy]
  */

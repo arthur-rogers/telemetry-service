@@ -6,7 +6,7 @@
 import { DTOError } from '../../errors/DtoError';
 
 /**
- * @class TelemetryPersistentDTO
+ * @implements {ITelemetryPersistent}
  */
 export class TelemetryPersistentDTO {
   /**
@@ -90,6 +90,18 @@ export class TelemetryPersistentDTO {
       );
     }
 
-    Object.assign(this, data);
+    this.vehicleId = data.vehicleId;
+    this.timestamp = data.timestamp;
+    this.speed = data.speed;
+    this.engineTemp = data.engineTemp;
+    this.fuelLevel = data.fuelLevel;
+    this.lat = data.lat;
+    this.lng = data.lng;
+    this.avgSpeed = data.avgSpeed;
+    this.avgEngineTemp = data.avgEngineTemp;
+    this.distanceTraveledMeters = data.distanceTraveledMeters;
+    this.status = data.status;
+    this.effectedBy = data.effectedBy;
+    this.reason = data.reason;
   }
 }

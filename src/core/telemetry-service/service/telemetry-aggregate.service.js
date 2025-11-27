@@ -6,9 +6,17 @@
 /** @class TelemetryAggregateService */
 import haversineDistance from 'haversine-distance';
 import { MissingValidTelemetryError } from '../../errors/TelemetryError';
-export class TelemetryAggregateService {
+import { ITelemetryAggregateService } from '../interface/ITelemetryAggregateService';
+
+/**
+ * @implements {ITelemetryAggregateService}
+ */
+export class TelemetryAggregateService extends ITelemetryAggregateService {
+  constructor() {
+    super();
+  }
   /**
-   *
+   * @override
    * @param {ITelemetry} newData
    * @param {Array<ITelemetryPersistent>} prevReadings
    * @returns {ITelemetryAggregated}

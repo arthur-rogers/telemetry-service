@@ -6,7 +6,7 @@
 import { DTOError } from '../../errors/DtoError';
 
 /**
- * @class RuleEngineResultDTO
+ * @implements {IRuleEngineExecutionResult}
  */
 export class RuleEngineResultDTO {
   /**
@@ -38,6 +38,8 @@ export class RuleEngineResultDTO {
         );
       }
     }
-    Object.assign(this, data);
+    this.result = data.result;
+    this.reason = data.reason;
+    this.effectedBy = data.effectedBy;
   }
 }

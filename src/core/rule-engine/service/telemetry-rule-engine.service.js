@@ -4,18 +4,25 @@
  */
 import { Engine } from 'json-rules-engine';
 import { RuleEngineResultDTO } from '../dto/RuleEngineResultDto';
+import { ITelemetryRuleEngine } from '../interface/ITelemetryRuleEngine';
 
 /**
  * @typedef {{type: string, params: {reason: string, effectedBy: string[]}}} EngineEvent
  */
 
-/** @class */
-export class TelemetryRuleEngine {
+// TODO: check how to describe an interface and make this calss implement it with js doc
+// imitating TypeScript behaviour and allow for dependency injection
+/**
+ * @class TelemetryRuleEngine
+ * @implements {ITelemetryRuleEngine}
+ */
+export class TelemetryRuleEngine extends ITelemetryRuleEngine {
   /**
    * @constructor
    * @param {Array<any>} rules
    */
   constructor(rules) {
+    super();
     this._engine = new Engine();
     for (const rule of rules) {
       this._engine.addRule(rule);
@@ -23,6 +30,7 @@ export class TelemetryRuleEngine {
   }
 
   /**
+   * @override
    * @param {ITelemetryEngineData} data
    * @returns {Promise<RuleEngineResultDTO>}
    */

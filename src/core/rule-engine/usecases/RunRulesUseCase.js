@@ -4,14 +4,14 @@
  */
 import { RuleResults } from '../domain/RuleEngineEntity';
 import { RulesRepositoryPort } from '../ports/driven/RulesRepository';
-import { RunRulesPort } from '../ports/driving/RunRulesPort';
+import { IRunRulesPort } from '../ports/driving/RunRulesPort';
 import { TelemetryRuleEngine } from '../service/telemetry-rule-engine.service';
 
 /**
  * @class RunRulesUseCase
- * @extends {RunRulesPort}
+ * @implements {IRunRulesPort}
  */
-export class RunRulesUseCase extends RunRulesPort {
+export class RunRulesUseCase extends IRunRulesPort {
   /**
    *
    * @param {RulesRepositoryPort} rulesRepo

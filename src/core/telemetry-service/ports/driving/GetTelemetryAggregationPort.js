@@ -1,19 +1,31 @@
 //@ts-check
 /**
- * @import {ITelemetry, ITelemetryPersistent, ITelemetryAggregated} from '../../domain/TelemetryEntity'
+ * @import {
+ *  ITelemetry,
+ *  ITelemetryAggregated
+ * } from '../../domain/TelemetryEntity'
  */
 
+import { TelemetryRepositoryPort } from '../driven/TelemetryRepositoryPort';
+
 /**
- * @interface TelemetryAggregationPort
+ * @interface ITelemetryAggregationPort
  */
-export class TelemetryAggregationPort {
+export class ITelemetryAggregationPort {
+  /**
+   *
+   * @param {TelemetryRepositoryPort} repository
+   */
+  constructor(repository) {
+    /**@readonly */
+    this._reposidory = repository;
+  }
   /**
    * @abstract
    * @param {ITelemetry} incoming
-   * @param {Array<ITelemetryPersistent>} [previous]
    * @returns {Promise<ITelemetryAggregated>}
    */
-  async getAggregated(incoming, previous) {
+  async getAggregated(incoming) {
     throw new Error(`Abstract method must be implemented`);
   }
 }

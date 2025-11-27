@@ -6,7 +6,7 @@
 import { DTOError } from '../../errors/DtoError';
 
 /**
- * @class TelemetryDTO
+ * @implements {ITelemetry}
  */
 export class TelemetryDTO {
   /**
@@ -51,6 +51,11 @@ export class TelemetryDTO {
         this.constructor.name
       );
     }
-    Object.assign(this, data);
+    this.vehicleId = data.vehicleId;
+    this.timestamp = data.timestamp;
+    this.speed = data.speed;
+    this.engineTemp = data.engineTemp;
+    this.fuelLevel = data.fuelLevel;
+    this.location = data.location;
   }
 }
