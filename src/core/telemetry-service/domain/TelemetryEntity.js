@@ -32,7 +32,7 @@
  * @property {number} distanceTraveledMeters Distance traveled since previous telemetry record
  * @property {number} maxPossibleDistanceMeters Possible max distance according to speed metrics
  * @property {string} timestamp Timestamp when current metric was created by sender
- * @property {string | null} prevTimestamp Timestamp of previous metric creation
+ * @property {string} prevTimestamp Timestamp of previous metric creation
  * @property {number} timestampAgeSec Difference between timestamps in seconds to invalidate too old or inconsistent data
  * @property {number} lat Latitude
  * @property {number} lng Longitude

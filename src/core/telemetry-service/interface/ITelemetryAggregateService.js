@@ -8,7 +8,7 @@ export class ITelemetryAggregateService {
   /**
    *
    * @param {ITelemetry} newData
-   * @param {Array<ITelemetryPersistent>} prevReadings
+   * @param {Array<ITelemetryPersistent>} [prevReadings]
    * @returns {ITelemetryAggregated}
    */
   getAggregated(newData, prevReadings) {

@@ -12,7 +12,7 @@ import { TelemetryAggregateService } from '../service/telemetry-aggregate.servic
  * @implements {ITelemetryAggregationPort}
  * */
 
-export class GetTelemetryResultUseCase extends ITelemetryAggregationPort {
+export class GetTelemetryAggregateUseCase extends ITelemetryAggregationPort {
   /**
    *
    * @param {TelemetryRepositoryPort} repository

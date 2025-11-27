@@ -46,7 +46,7 @@ export class TelemetryAggregateService extends ITelemetryAggregateService {
       distanceTraveledMeters: prevAndAvg?.distanceTraveledMeters || 0,
       maxPossibleDistanceMeters: prevAndAvg?.maxPossibleDistanceMeters || 0,
       timestamp: timestamp,
-      prevTimestamp: prevAndAvg?.prevTimestamp || null,
+      prevTimestamp: prevAndAvg?.prevTimestamp || timestamp,
       timestampAgeSec: this._msToSec(
         Date.now().valueOf() - new Date(timestamp).valueOf(),
         5
