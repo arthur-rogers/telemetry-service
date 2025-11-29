@@ -1,6 +1,7 @@
 //@ts-check
 
 import { TelemetryPersistentDTO } from '../../../src/core/telemetry-service/dto/TelemetryPersistentDto';
+import { TelemetryRepositoryPort } from '../../../src/core/telemetry-service/ports/driven/TelemetryRepositoryPort';
 import { ITelemetryAggregationPort } from '../../../src/core/telemetry-service/ports/driving/GetTelemetryAggregationPort';
 import { GetTelemetryAggregateUseCase } from '../../../src/core/telemetry-service/usecases/GetTelemetryAggregateUseCase';
 import { createInitData } from '../../__mocks__/fake-telemetry-generator';
@@ -10,7 +11,7 @@ import { jest } from '@jest/globals';
 describe('Telemetry aggregate use case', () => {
   /** @type {ITelemetryAggregationPort} */
   let useCase;
-  /** @type {} */
+  /** @type {TelemetryRepositoryPort} */
   let repo;
   const baseLocation = {
     lat: 41.01224,

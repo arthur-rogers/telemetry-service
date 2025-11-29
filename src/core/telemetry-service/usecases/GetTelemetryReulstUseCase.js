@@ -4,10 +4,11 @@
  */
 
 import { RuleEngineResultDTO } from '../../rule-engine/dto/RuleEngineResultDto';
-import { IRunRulesPort } from '../../rule-engine/ports/driving/RunRulesPort';
+import { RulesRepositoryPort } from '../../rule-engine/ports/driven/RulesRepository';
+import { RunRulesUseCase } from '../../rule-engine/usecases/RunRulesUseCase';
 import { TelemetryRepositoryPort } from '../ports/driven/TelemetryRepositoryPort';
-import { ITelemetryAggregationPort } from '../ports/driving/GetTelemetryAggregationPort';
 import { GetTelemetryResultPort } from '../ports/driving/GetTelemetryResultPort';
+import { GetTelemetryAggregateUseCase } from './GetTelemetryAggregateUseCase';
 
 /**
  * @implements {GetTelemetryResultPort}
@@ -16,11 +17,10 @@ export class GetTelemetryResultUseCase extends GetTelemetryResultPort {
   /**
    *
    * @param {TelemetryRepositoryPort} repo
-   *  @param {IRunRulesPort} rulesUseCase
-   * @param {ITelemetryAggregationPort} aggregationUseCase
+   *  @param {RulesRepositoryPort} rulesRepo
    */
-  constructor(repo, rulesUseCase, aggregationUseCase) {
-    super(repo, rulesUseCase, aggregationUseCase);
+  constructor(repo, rulesRepo) {
+    super(repo, rulesRepo);
   }
 
   /**
@@ -30,9 +30,11 @@ export class GetTelemetryResultUseCase extends GetTelemetryResultPort {
    */
   async getResults(incoming) {
     try {
-      const aggregated = await this._aggregationUseCase.getAggregated(incoming);
+      const aggregateUseCase = new GetTelemetryAggregateUseCase(this._repo);
+      const runRuleUseCase = new RunRulesUseCase(this._rulesRepo);
+      const aggregated = await aggregateUseCase.getAggregated(incoming);
       //TODO: probably better create a maper
-      const result = await this._rulesUseCase.runRules({
+      const result = await runRuleUseCase.runRules({
         ...aggregated,
         timestamp: new Date(aggregated.timestamp).valueOf(),
         prevTimestamp: new Date(aggregated.prevTimestamp).valueOf(),

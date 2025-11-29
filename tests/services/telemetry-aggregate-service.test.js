@@ -37,7 +37,7 @@ describe('Telemetry rules engine test', () => {
     expect(result.fuelLevelChangeRate).toEqual(0);
     expect(result.distanceTraveledMeters).toEqual(0);
     expect(result.maxPossibleDistanceMeters).toEqual(0);
-    expect(result.prevTimestamp).toBeNull();
+    expect(result.prevTimestamp).toBe(telemetry.timestamp);
   });
 
   it('Should correctly calculate avg values', async () => {

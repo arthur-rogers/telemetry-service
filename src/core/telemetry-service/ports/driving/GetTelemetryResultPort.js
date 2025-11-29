@@ -4,6 +4,7 @@
  */
 
 import { RuleEngineResultDTO } from '../../../rule-engine/dto/RuleEngineResultDto';
+import { RulesRepositoryPort } from '../../../rule-engine/ports/driven/RulesRepository';
 import { IRunRulesPort } from '../../../rule-engine/ports/driving/RunRulesPort';
 import { TelemetryRepositoryPort } from '../driven/TelemetryRepositoryPort';
 import { ITelemetryAggregationPort } from './GetTelemetryAggregationPort';
@@ -15,18 +16,14 @@ export class GetTelemetryResultPort {
   /**
    *
    * @param {TelemetryRepositoryPort} repo
-   * @param {IRunRulesPort} rulesUseCase
-   * @param {ITelemetryAggregationPort} aggregationUseCase
+   * @param {RulesRepositoryPort} rulesRepo
    */
-  constructor(repo, rulesUseCase, aggregationUseCase) {
+  constructor(repo, rulesRepo) {
     /** @readonly */
     this._repo = repo;
 
     /** @readonly */
-    this._rulesUseCase = rulesUseCase;
-
-    /** @readonly */
-    this._aggregationUseCase = aggregationUseCase;
+    this._rulesRepo = rulesRepo;
   }
 
   /**

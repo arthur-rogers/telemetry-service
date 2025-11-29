@@ -11,8 +11,7 @@ import { MockTelemetryRepo } from '../../__mocks__/telemetry-repo.mock';
 describe('Telemetry result use case', () => {
   /** @type {GetTelemetryResultPort} */
   let useCase;
-  let rulesUseCase;
-  let aggregateUseCase;
+
   let telemetryRepo;
   let rulesRepo;
 
@@ -25,13 +24,7 @@ describe('Telemetry result use case', () => {
   beforeAll(() => {
     telemetryRepo = new MockTelemetryRepo();
     rulesRepo = new RulesRepository();
-    rulesUseCase = new RunRulesUseCase(rulesRepo);
-    aggregateUseCase = new GetTelemetryAggregateUseCase(telemetryRepo);
-    useCase = new GetTelemetryResultUseCase(
-      telemetryRepo,
-      rulesUseCase,
-      aggregateUseCase
-    );
+    useCase = new GetTelemetryResultUseCase(telemetryRepo, rulesRepo);
   });
 
   it('should work', async () => {
