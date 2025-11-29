@@ -5,7 +5,7 @@
     "exculdePattern": "(node_modules/|docs)"
   },
   "sourceType": "module",
-  "plugins": ["plugins/markdown", "./jsdoc-ignore-imports.js"],
+  "plugins": ["plugins/markdown", "./jsdoc-ignore-imports.cjs"],
   "templates": {
     "cleverLinks": true,
     "monospaceLinks": true

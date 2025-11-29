@@ -13,7 +13,6 @@ export class TelemetryDTO {
    * @param {ITelemetry} data
    */
   constructor(data) {
-    /** @type {(keyof ITelemetry)[]} */
     const requiredFields = [
       'vehicleId',
       'timestamp',
@@ -24,6 +23,7 @@ export class TelemetryDTO {
     ];
 
     for (const field of requiredFields) {
+      // @ts-ignore
       if (data[field] === undefined || data[field] === null) {
         throw new DTOError(
           `missing required field "${field}"`,

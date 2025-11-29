@@ -22,7 +22,6 @@ export class TelemetryEngineDataDTO {
       );
     }
 
-    /** @type {(keyof ITelemetryEngineData)[]} */
     const requiredNumberFields = [
       'speed',
       'prevSpeed',
@@ -42,6 +41,7 @@ export class TelemetryEngineDataDTO {
     ];
 
     for (const field of requiredNumberFields) {
+      // @ts-ignore
       if (typeof data[field] !== 'number' || Number.isNaN(data[field])) {
         throw new DTOError(
           `"${field}" must be a valid number`,

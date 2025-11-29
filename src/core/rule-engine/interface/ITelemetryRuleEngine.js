@@ -8,7 +8,7 @@ import { RuleEngineResultDTO } from '../dto/RuleEngineResultDto';
 /**@interface ITelemetryRuleEngine */
 export class ITelemetryRuleEngine {
   /**
-   * @param {import("../domain/RuleEngineEntity").ITelemetryEngineData} data
+   * @param {ITelemetryEngineData} data
    * @returns {Promise<RuleEngineResultDTO>}
    */
   async runEngine(data) {

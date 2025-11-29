@@ -13,7 +13,6 @@ export class TelemetryAggregatedDTO {
    * @param {ITelemetryAggregated} data
    */
   constructor(data) {
-    /** @type {(keyof ITelemetryAggregated)[]} */
     const requiredFields = [
       'isNewState',
       'vehicleId',
@@ -37,6 +36,7 @@ export class TelemetryAggregatedDTO {
     ];
 
     for (const field of requiredFields) {
+      // @ts-ignore
       if (data[field] === undefined || data[field] === null) {
         throw new DTOError(
           `missing required field "${field}"`,

@@ -1,6 +1,17 @@
 //@ts-check
 /**
- * @import {ITelemetry, ITelemetryPersistent, ITelemetryAggregated} from '../domain/TelemetryEntity'
+ * @import {ITelemetry,
+ * ITelemetryPersistent,
+ * ITelemetryAggregated} from '../domain/TelemetryEntity'
+ *
+ * @import {
+ *  PreviousAndAverage,
+ *  SpeedAggregate,
+ *  EngineTempAggregate,
+ *  FuelAggregate,
+ *  DistanceAggregate,
+ *  TimestampAggregate
+ * } from './types'
  */
 
 /** @class TelemetryAggregateService */
@@ -11,6 +22,7 @@ import { ITelemetryAggregateService } from '../interface/ITelemetryAggregateServ
 /**
  * @implements {ITelemetryAggregateService}
  */
+
 export class TelemetryAggregateService extends ITelemetryAggregateService {
   constructor() {
     super();
@@ -58,19 +70,7 @@ export class TelemetryAggregateService extends ITelemetryAggregateService {
    * @private
    * @param {Array<ITelemetryPersistent>} prevReadings
    * @param {ITelemetry} newData
-   * @returns {{
-   * prevSpeed: number,
-   * avgSpeed: number,
-   * speedChange: number,
-   * prevEngineTemp: number,
-   * avgEngineTemp: number,
-   * prevFuelLevel: number,
-   * fuelLevelChangeRate: number,
-   * distanceTraveledMeters: number,
-   * maxPossibleDistanceMeters: number,
-   * prevTimestamp: string
-   * timestampAgeSec: number
-   * }}
+   * @returns {PreviousAndAverage}
    */
   _getPreviousAndAverage(prevReadings, newData) {
     const { prevSpeed, avgSpeed, speedChange } = this._getSpeedData(
@@ -115,7 +115,7 @@ export class TelemetryAggregateService extends ITelemetryAggregateService {
    * @private
    * @param {Array<ITelemetryPersistent>} prevReadings,
    * @param {ITelemetry} newData
-   * @returns {{prevSpeed: number, avgSpeed: number, speedChange: number}}
+   * @returns {SpeedAggregate}
    */
   _getSpeedData(prevReadings, newData) {
     const validReadings = this._getValidReadingsByType(prevReadings, 'SPEED');
@@ -137,7 +137,7 @@ export class TelemetryAggregateService extends ITelemetryAggregateService {
    * @private
    * @param {Array<ITelemetryPersistent>} prevReadings,
    * @param {ITelemetry} newData
-   * @returns {{prevEngineTemp: number, avgEngineTemp: number}}
+   * @returns {EngineTempAggregate}
    */
   _getEngineData(prevReadings, newData) {
     const validReadings = this._getValidReadingsByType(
@@ -158,7 +158,7 @@ export class TelemetryAggregateService extends ITelemetryAggregateService {
    * @private
    * @param {Array<ITelemetryPersistent>} prevReadings,
    * @param {ITelemetry} newData
-   * @returns {{prevFuelLevel: number, fuelLevelChangeRate: number}}
+   * @returns {FuelAggregate}
    */
   _getFuelData(prevReadings, newData) {
     const validReadings = this._getValidReadingsByType(
@@ -183,7 +183,7 @@ export class TelemetryAggregateService extends ITelemetryAggregateService {
    * @param {ITelemetry} newData
    * @param {number} avgSpeed
    * @param {number} timePassed,
-   * @returns {{distanceTraveledMeters: number, maxPossibleDistanceMeters: number}}
+   * @returns {DistanceAggregate}
    */
   _getDistanceData(prevReadings, newData, avgSpeed, timePassed) {
     const validReadings = this._getValidReadingsByType(
@@ -214,7 +214,7 @@ export class TelemetryAggregateService extends ITelemetryAggregateService {
    * @private
    * @param {Array<ITelemetryPersistent>} prevReadings,
    * @param {ITelemetry} newData
-   * @returns {{prevTimestamp: string, timestampAgeSec: number}}
+   * @returns {TimestampAggregate}
    */
   _getTimestampData(prevReadings, newData) {
     const validReadings = this._getValidReadingsByType(

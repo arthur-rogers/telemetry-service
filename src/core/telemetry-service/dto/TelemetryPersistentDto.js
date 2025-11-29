@@ -13,7 +13,6 @@ export class TelemetryPersistentDTO {
    * @param {ITelemetryPersistent} data
    */
   constructor(data) {
-    /** @type {(keyof ITelemetryPersistent)[]} */
     const requiredFields = [
       'vehicleId',
       'timestamp',
@@ -29,6 +28,7 @@ export class TelemetryPersistentDTO {
     ];
 
     for (const field of requiredFields) {
+      // @ts-ignore
       if (data[field] === undefined || data[field] === null) {
         throw new DTOError(
           `missing required field "${field}"`,
@@ -37,7 +37,6 @@ export class TelemetryPersistentDTO {
       }
     }
 
-    /** @type {(keyof ITelemetryPersistent)[]} */
     const numericFields = [
       'speed',
       'engineTemp',
@@ -50,6 +49,7 @@ export class TelemetryPersistentDTO {
     ];
 
     numericFields.forEach((field) => {
+      // @ts-ignore
       if (typeof data[field] !== 'number') {
         throw new DTOError(
           `"${field}" must be a number`,
