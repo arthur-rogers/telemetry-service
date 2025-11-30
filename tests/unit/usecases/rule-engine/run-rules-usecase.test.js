@@ -1,10 +1,13 @@
-import { RulesRepository } from '../../../../src/adapters/driven/RulesEngine/RulesRepository';
+//@ts-check
+import { IRunRulesPort } from '../../../../src/core/rule-engine/ports/driving/RunRulesPort';
 import { RunRulesUseCase } from '../../../../src/core/rule-engine/usecases/RunRulesUseCase';
+import { MockRulesRepository } from '../../__mocks__/rules-repo.mock';
 
 describe('RunRules usecase test', () => {
+  /**@type {IRunRulesPort} */
   let useCase;
   beforeEach(async () => {
-    const repo = new RulesRepository();
+    const repo = new MockRulesRepository();
     useCase = new RunRulesUseCase(repo);
   });
   it('Should return result with correct structure', async () => {

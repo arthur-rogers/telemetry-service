@@ -1,3 +1,4 @@
+//@ts-check
 import { RulesRepositoryPort } from '../../../core/rule-engine/ports/driven/RulesRepository';
 import rules from '../../../../static/rules/rules.json';
 

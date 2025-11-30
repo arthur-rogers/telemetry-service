@@ -1,12 +1,10 @@
 //@ts-check
 
-import { RulesRepository } from '../../../src/adapters/driven/RulesEngine/RulesRepository';
-import { RunRulesUseCase } from '../../../src/core/rule-engine/usecases/RunRulesUseCase';
-import { GetTelemetryResultPort } from '../../../src/core/telemetry-service/ports/driving/GetTelemetryResultPort';
-import { GetTelemetryAggregateUseCase } from '../../../src/core/telemetry-service/usecases/GetTelemetryAggregateUseCase';
-import { GetTelemetryResultUseCase } from '../../../src/core/telemetry-service/usecases/GetTelemetryReulstUseCase';
 import { createInitData } from '../../__mocks__/fake-telemetry-generator';
 import { MockTelemetryRepo } from '../../__mocks__/telemetry-repo.mock';
+import { GetTelemetryResultPort } from '../../../../src/core/telemetry-service/ports/driving/GetTelemetryResultPort';
+import { GetTelemetryResultUseCase } from '../../../../src/core/telemetry-service/usecases/GetTelemetryReulstUseCase';
+import { MockRulesRepository } from '../../__mocks__/rules-repo.mock';
 
 describe('Telemetry result use case', () => {
   /** @type {GetTelemetryResultPort} */
@@ -23,7 +21,7 @@ describe('Telemetry result use case', () => {
 
   beforeAll(() => {
     telemetryRepo = new MockTelemetryRepo();
-    rulesRepo = new RulesRepository();
+    rulesRepo = new MockRulesRepository();
     useCase = new GetTelemetryResultUseCase(telemetryRepo, rulesRepo);
   });
 
