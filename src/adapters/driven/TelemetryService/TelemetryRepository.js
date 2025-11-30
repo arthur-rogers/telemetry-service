@@ -19,7 +19,7 @@ export class TelemetryRepository extends TelemetryRepositoryPort {
     this._data = [];
   }
   /**
-   *
+   * @override
    * @param {string} vehicleId
    * @param {number} amount
    * @returns {Promise<Array<ITelemetryPersistent>>}

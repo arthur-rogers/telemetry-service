@@ -38,9 +38,9 @@
  * @property {number} lng Longitude
  */
 
-// TODO: think about adding some sort of session id to be able to analyze telemetry over specific intervals and rides
 /**
  * @typedef {Object} ITelemetryPersistent
+ * @property {string} sessionId
  * @property {string} vehicleId
  * @property {string} timestamp
  * @property {number} speed

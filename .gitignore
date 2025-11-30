@@ -140,3 +140,7 @@ vite.config.ts.timestamp-*
 
 # jsdoc
 docs
+
+#docker related
+postgres-init
+mongo-init

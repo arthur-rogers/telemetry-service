@@ -6,7 +6,10 @@
   "type": "module",
   "scripts": {
     "docs": "jsdoc -c jsdoc.json",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "dotenv -e ./.env.dev -- node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "mongo:init": "mkdir -p mongo-init && node script/create-initial-monogo-config.js > ./mongo-init/init.js",
+    "pg:init": "mkdir -p postgres-init && node script/create-initial-pg-configs.js > ./postgres-init/init.sql",
+    "db:initial-config": "npm run mongo:init && npm run pg:init"
   },
   "repository": {
     "type": "git",
@@ -21,11 +24,17 @@
   "devDependencies": {
     "@faker-js/faker": "^10.1.0",
     "@types/jest": "^30.0.0",
+    "dotenv-cli": "^11.0.0",
     "jest": "^30.2.0",
     "jsdoc": "^4.0.5"
   },
   "dependencies": {
+    "dotenv": "^17.2.3",
     "haversine-distance": "^1.2.4",
-    "json-rules-engine": "^7.3.1"
+    "json-rules-engine": "^7.3.1",
+    "mongoose": "^9.0.0",
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7"
   }
 }

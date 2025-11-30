@@ -1,8 +1,8 @@
 //@ts-check
 /**
- * @import {ITelemetryPersistent} from '../../src/core/telemetry-service/domain/TelemetryEntity'
+ * @import {ITelemetryPersistent} from '../../../src/core/telemetry-service/domain/TelemetryEntity'
  */
-import { TelemetryRepositoryPort } from '../../src/core/telemetry-service/ports/driven/TelemetryRepositoryPort';
+import { TelemetryRepositoryPort } from '../../../src/core/telemetry-service/ports/driven/TelemetryRepositoryPort';
 
 /**
  * @implements {TelemetryRepositoryPort}

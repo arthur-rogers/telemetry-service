@@ -1,5 +1,5 @@
-import { RulesRepository } from '../../../src/adapters/driven/RulesEngine/RulesRepository';
-import { RunRulesUseCase } from '../../../src/core/rule-engine/usecases/RunRulesUseCase';
+import { RulesRepository } from '../../../../src/adapters/driven/RulesEngine/RulesRepository';
+import { RunRulesUseCase } from '../../../../src/core/rule-engine/usecases/RunRulesUseCase';
 
 describe('RunRules usecase test', () => {
   let useCase;

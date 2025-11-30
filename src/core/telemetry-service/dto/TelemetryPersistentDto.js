@@ -103,5 +103,6 @@ export class TelemetryPersistentDTO {
     this.status = data.status;
     this.effectedBy = data.effectedBy;
     this.reason = data.reason;
+    this.sessionId = data.sessionId;
   }
 }

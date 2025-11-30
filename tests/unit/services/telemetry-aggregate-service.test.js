@@ -1,8 +1,8 @@
 //@ts-check
-import { MissingValidTelemetryError } from '../../src/core/errors/TelemetryError';
-import { TelemetryPersistentDTO } from '../../src/core/telemetry-service/dto/TelemetryPersistentDto';
-import { ITelemetryAggregateService } from '../../src/core/telemetry-service/interface/ITelemetryAggregateService';
-import { TelemetryAggregateService } from '../../src/core/telemetry-service/service/telemetry-aggregate.service';
+import { MissingValidTelemetryError } from '../../../src/core/errors/TelemetryError';
+import { TelemetryPersistentDTO } from '../../../src/core/telemetry-service/dto/TelemetryPersistentDto';
+import { ITelemetryAggregateService } from '../../../src/core/telemetry-service/interface/ITelemetryAggregateService';
+import { TelemetryAggregateService } from '../../../src/core/telemetry-service/service/telemetry-aggregate.service';
 import {
   createInitData,
   generateNextTelemetryAccelerate,
@@ -48,10 +48,11 @@ describe('Telemetry rules engine test', () => {
       new TelemetryPersistentDTO({
         ...initState,
         status: 'VALID',
+        sessionId: '12345',
       })
     );
     const curState = service.getAggregated(firstNextState, [
-      { ...initState, status: 'VALID' },
+      { ...initState, status: 'VALID', sessionId: '12345' },
     ]);
     console.debug(curState);
     expect(curState).toBeDefined();

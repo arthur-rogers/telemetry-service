@@ -1,8 +1,8 @@
 //@ts-check
 
 import { faker } from '@faker-js/faker';
-import { TelemetryDTO } from '../../src/core/telemetry-service/dto/TelemetryDto';
-import { TelemetryPersistentDTO } from '../../src/core/telemetry-service/dto/TelemetryPersistentDto';
+import { TelemetryDTO } from '../../../src/core/telemetry-service/dto/TelemetryDto';
+import { TelemetryPersistentDTO } from '../../../src/core/telemetry-service/dto/TelemetryPersistentDto';
 
 /**
  *
@@ -58,6 +58,7 @@ export const generateNextTelemetryAccelerate = (prev) => {
 export const generatePreviousRejectedTelemetry = () => {
   return new TelemetryPersistentDTO({
     vehicleId: 'VH-2231',
+    sessionId: '12345',
     lat: 41.01224,
     lng: 28.97602,
     speed: 2,

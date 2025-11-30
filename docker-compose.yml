@@ -1,0 +1,35 @@
+services:
+  postgresdb:
+    image: postgres
+    container_name: telemetry-app-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${PG_ROOT_USER}
+      POSTGRES_PASSWORD: ${PG_ROOT_PASSWORD}
+    ports:
+      - ${PG_PORT}:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql
+      - ./postgres-init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PG_ROOT_USER} -d ${PG_DATABASE}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  mongo:
+    image: mongo
+    container_name: telemetry-app-mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    ports:
+      - ${MONGODB_PORT}:27017
+    volumes:
+      - mongo_data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d
+
+volumes:
+  postgres_data:
+  mongo_data:
