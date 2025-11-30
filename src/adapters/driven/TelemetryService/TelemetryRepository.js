@@ -2,9 +2,10 @@
 /**
  * @import {ITelemetryPersistent} from '../../../core/telemetry-service/domain/TelemetryEntity'
  */
+import { Op } from 'sequelize';
 import { TelemetryRepositoryPort } from '../../../core/telemetry-service/ports/driven/TelemetryRepositoryPort';
-
-//TODO: this is enough to test logic but add implementation later
+import { Telemetry } from '../../../infrastructure/db/postgresql/models/telemetry.model';
+import { TelemetryPersistentDTO } from '../../../core/telemetry-service/dto/TelemetryPersistentDto';
 
 /**
  * @class TelemetryRepository
@@ -13,26 +14,36 @@ import { TelemetryRepositoryPort } from '../../../core/telemetry-service/ports/d
 export class TelemetryRepository extends TelemetryRepositoryPort {
   constructor() {
     super();
-    /**
-     * @type {Array<ITelemetryPersistent>}
-     */
-    this._data = [];
   }
   /**
    * @override
    * @param {string} vehicleId
+   * @param {string} sessionId
    * @param {number} amount
    * @returns {Promise<Array<ITelemetryPersistent>>}
    */
-  async getPreviousReadings(vehicleId, amount) {
-    return (
-      this._data
-        .filter((item) => item.vehicleId === vehicleId)
-        //@ts-ignore
-        //TODO: fix later
-        .sort((a, b) => a.timestamp - b.timestamp)
-        .slice(amount)
-    );
+  async getPreviousReadings(vehicleId, sessionId, amount) {
+    const result = await Telemetry.findAll({
+      where: { vehicleId, sessionId },
+      order: ['timestamp', 'DESC'],
+      limit: amount,
+    });
+    return result.map((item) => new TelemetryPersistentDTO(item.toJSON()));
+  }
+
+  /**
+   * @param {string} vehicleId
+   * @param {string} sessionId
+   * @param {number} amount
+   * @returns {Promise<Array<ITelemetryPersistent>>}
+   */
+  async getPreviousReadingsNotRejected(vehicleId, sessionId, amount) {
+    const result = await Telemetry.findAll({
+      where: { vehicleId, sessionId, status: { [Op.notILike]: 'REJECTED' } },
+      order: ['timestamp', 'DESC'],
+      limit: amount,
+    });
+    return result.map((item) => new TelemetryPersistentDTO(item.toJSON()));
   }
 
   /**
@@ -40,6 +51,6 @@ export class TelemetryRepository extends TelemetryRepositoryPort {
    * @param {ITelemetryPersistent} entity
    */
   async save(entity) {
-    this._data.push(entity);
+    return (await Telemetry.create(entity)).toJSON();
   }
 }

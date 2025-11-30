@@ -1,6 +1,6 @@
 //@ts-check
 import { RulesRepositoryPort } from '../../../core/rule-engine/ports/driven/RulesRepository';
-import rules from '../../../../static/rules/rules.json';
+import { JsonRuleModel } from '../../../infrastructure/db/mongo/models/JsonRuleModel';
 
 /**
  * @class
@@ -12,6 +12,6 @@ export class RulesRepository extends RulesRepositoryPort {
   }
   /** @override */
   async getRules() {
-    return rules;
+    return JsonRuleModel.find();
   }
 }
