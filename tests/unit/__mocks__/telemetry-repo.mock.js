@@ -19,10 +19,11 @@ export class MockTelemetryRepo extends TelemetryRepositoryPort {
   /**
    * @override
    * @param {string} vehicleId
+   * @param {string} sessionId
    * @param {number} amount
    * @returns {Promise<Array<ITelemetryPersistent>>}
    */
-  async getPreviousReadings(vehicleId, amount) {
+  async getPreviousReadings(vehicleId, sessionId, amount) {
     return this._data
       .filter((item) => item.vehicleId === vehicleId)
       .sort(
@@ -35,10 +36,11 @@ export class MockTelemetryRepo extends TelemetryRepositoryPort {
   /**
    * @override
    * @param {string} vehicleId
+   * @param {string} sessionId
    * @param {number} amount
    * @returns {Promise<Array<ITelemetryPersistent>>}
    */
-  async getPreviousReadingsNotRejected(vehicleId, amount) {
+  async getPreviousReadingsNotRejected(vehicleId, sessionId, amount) {
     return this._data
       .filter(
         (item) => item.vehicleId === vehicleId && item.status !== 'REJECTED'

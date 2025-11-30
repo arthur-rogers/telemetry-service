@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "docs": "jsdoc -c jsdoc.json",
-    "test": "dotenv -e ./.env.dev -- node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "dotenv -e ./.env -- node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:unit": "npm run test tests/unit",
     "test:integration": "npm run test tests/integration",
     "mongo:init": "mkdir -p mongo-init && node script/create-initial-monogo-config.js > ./mongo-init/init.js",
@@ -28,7 +28,8 @@
     "@types/jest": "^30.0.0",
     "dotenv-cli": "^11.0.0",
     "jest": "^30.2.0",
-    "jsdoc": "^4.0.5"
+    "jsdoc": "^4.0.5",
+    "sequelize-cli": "^6.6.3"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

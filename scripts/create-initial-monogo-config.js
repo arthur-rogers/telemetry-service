@@ -4,7 +4,7 @@ import {
   getMongoDBPassword,
   getMongoDBUser,
 } from '../src/env/environment.js';
-dotenv.config({ path: '.env.dev', quiet: true });
+dotenv.config({ path: '.env', quiet: true });
 
 const dbName = getMongoDatabaseName();
 const user = getMongoDBUser();

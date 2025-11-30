@@ -6,7 +6,7 @@ import {
   getPostgresUser,
 } from '../src/env/environment.js';
 
-dotenv.config({ path: '.env.dev', quiet: true });
+dotenv.config({ path: '.env', quiet: true });
 
 const pgDbName = getPostgresDBName();
 const pgUser = getPostgresUser();
