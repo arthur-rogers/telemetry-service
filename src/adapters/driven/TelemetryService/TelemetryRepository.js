@@ -3,9 +3,9 @@
  * @import {ITelemetryPersistent} from '../../../core/telemetry-service/domain/TelemetryEntity'
  */
 import { Op } from 'sequelize';
-import { TelemetryRepositoryPort } from '../../../core/telemetry-service/ports/driven/TelemetryRepositoryPort';
-import { Telemetry } from '../../../infrastructure/db/postgresql/models/telemetry.model';
-import { TelemetryPersistentDTO } from '../../../core/telemetry-service/dto/TelemetryPersistentDto';
+import { TelemetryRepositoryPort } from '../../../core/telemetry-service/ports/driven/TelemetryRepositoryPort.js';
+import { Telemetry } from '../../../infrastructure/db/postgresql/models/telemetry.model.js';
+import { TelemetryPersistentDTO } from '../../../core/telemetry-service/dto/TelemetryPersistentDto.js';
 
 /**
  * @class TelemetryRepository

@@ -1,6 +1,6 @@
 //@ts-check
-import { RulesRepositoryPort } from '../../../core/rule-engine/ports/driven/RulesRepository';
-import { JsonRuleModel } from '../../../infrastructure/db/mongo/models/JsonRuleModel';
+import { RulesRepositoryPort } from '../../../core/rule-engine/ports/driven/RulesRepository.js';
+import { JsonRuleModel } from '../../../infrastructure/db/mongo/models/JsonRuleModel.js';
 
 /**
  * @class

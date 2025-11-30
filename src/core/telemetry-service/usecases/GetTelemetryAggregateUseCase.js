@@ -3,9 +3,9 @@
  * @import {ITelemetry, ITelemetryAggregated} from '../domain/TelemetryEntity'
  */
 
-import { TelemetryRepositoryPort } from '../ports/driven/TelemetryRepositoryPort';
-import { ITelemetryAggregationPort } from '../ports/driving/GetTelemetryAggregationPort';
-import { TelemetryAggregateService } from '../service/telemetry-aggregate.service';
+import { TelemetryRepositoryPort } from '../ports/driven/TelemetryRepositoryPort.js';
+import { ITelemetryAggregationPort } from '../ports/driving/GetTelemetryAggregationPort.js';
+import { TelemetryAggregateService } from '../service/telemetry-aggregate.service.js';
 
 /**
  * @class GetTelemetryResultUseCase
@@ -24,14 +24,16 @@ export class GetTelemetryAggregateUseCase extends ITelemetryAggregationPort {
   /**
    * @override
    * @param {ITelemetry} incoming
+   * @param {string} sessionId
    * @returns {Promise<ITelemetryAggregated>}
    */
-  async getAggregated(incoming) {
+  async getAggregated(incoming, sessionId) {
     try {
       const aggregationService = new TelemetryAggregateService();
       const previousTelemetry =
         await this._reposidory.getPreviousReadingsNotRejected(
           incoming.vehicleId,
+          sessionId,
           50
         );
       const aggrated = aggregationService.getAggregated(

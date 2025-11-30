@@ -3,7 +3,7 @@
  * @import {ITelemetryEngineData} from "../domain/RuleEngineEntity"
  */
 
-import { DTOError } from '../../errors/DtoError';
+import { DTOError } from '../../errors/DtoError.js';
 
 /**
  * @implements {ITelemetryEngineData}

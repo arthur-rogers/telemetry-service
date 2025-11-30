@@ -6,7 +6,7 @@
  * } from '../../domain/TelemetryEntity'
  */
 
-import { TelemetryRepositoryPort } from '../driven/TelemetryRepositoryPort';
+import { TelemetryRepositoryPort } from '../driven/TelemetryRepositoryPort.js';
 
 /**
  * @interface ITelemetryAggregationPort
@@ -23,9 +23,10 @@ export class ITelemetryAggregationPort {
   /**
    * @abstract
    * @param {ITelemetry} incoming
+   * @param {string} sessionId
    * @returns {Promise<ITelemetryAggregated>}
    */
-  async getAggregated(incoming) {
+  async getAggregated(incoming, sessionId) {
     throw new Error(`Abstract method must be implemented`);
   }
 }

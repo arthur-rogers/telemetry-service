@@ -3,8 +3,8 @@
  * @import {ITelemetryEngineData, IRuleEngineExecutionResult} from '../domain/RuleEngineEntity'
  */
 import { Engine } from 'json-rules-engine';
-import { RuleEngineResultDTO } from '../dto/RuleEngineResultDto';
-import { ITelemetryRuleEngine } from '../interface/ITelemetryRuleEngine';
+import { RuleEngineResultDTO } from '../dto/RuleEngineResultDto.js';
+import { ITelemetryRuleEngine } from '../interface/ITelemetryRuleEngine.js';
 
 /**
  * @typedef {{type: string, params: {reason: string, effectedBy: string[]}}} EngineEvent

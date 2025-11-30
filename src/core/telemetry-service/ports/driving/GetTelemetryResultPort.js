@@ -3,11 +3,9 @@
  * @import {ITelemetry} from '../../domain/TelemetryEntity'
  */
 
-import { RuleEngineResultDTO } from '../../../rule-engine/dto/RuleEngineResultDto';
-import { RulesRepositoryPort } from '../../../rule-engine/ports/driven/RulesRepository';
-import { IRunRulesPort } from '../../../rule-engine/ports/driving/RunRulesPort';
-import { TelemetryRepositoryPort } from '../driven/TelemetryRepositoryPort';
-import { ITelemetryAggregationPort } from './GetTelemetryAggregationPort';
+import { RuleEngineResultDTO } from '../../../rule-engine/dto/RuleEngineResultDto.js';
+import { RulesRepositoryPort } from '../../../rule-engine/ports/driven/RulesRepository.js';
+import { TelemetryRepositoryPort } from '../driven/TelemetryRepositoryPort.js';
 
 /**
  * @interface GetTelemetryResultPort
@@ -29,9 +27,10 @@ export class GetTelemetryResultPort {
   /**
    * @abstract
    * @param {ITelemetry} incomingTelemetry
+   * @param {string} sessionId
    * @returns {Promise<RuleEngineResultDTO>}
    */
-  async getResults(incomingTelemetry) {
+  async getResults(incomingTelemetry, sessionId) {
     throw new Error(`Not implemented!`);
   }
 }

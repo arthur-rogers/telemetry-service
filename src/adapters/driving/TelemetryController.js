@@ -2,10 +2,13 @@
 /**
  * @import {ITelemetry} from '../../core/telemetry-service/domain/TelemetryEntity'
  */
-import { TelemetryDTO } from '../../core/telemetry-service/dto/TelemetryDto';
-import { GetTelemetryResultPort } from '../../core/telemetry-service/ports/driving/GetTelemetryResultPort';
+import { TelemetryDTO } from '../../core/telemetry-service/dto/TelemetryDto.js';
+import { GetTelemetryResultPort } from '../../core/telemetry-service/ports/driving/GetTelemetryResultPort.js';
+import { GetTelemetryResultUseCase } from '../../core/telemetry-service/usecases/GetTelemetryReulstUseCase.js';
+import { RulesRepository } from '../driven/RulesEngine/RulesRepository.js';
+import { TelemetryRepository } from '../driven/TelemetryService/TelemetryRepository.js';
 
-export class TelemetryController {
+class TelemetryController {
   /**
    *
    * @param {GetTelemetryResultPort} telemetryResult
@@ -28,3 +31,11 @@ export class TelemetryController {
     }
   }
 }
+
+const telemetryRepository = new TelemetryRepository();
+const rulesRepository = new RulesRepository();
+const usecase = new GetTelemetryResultUseCase(
+  telemetryRepository,
+  rulesRepository
+);
+export const controller = new TelemetryController(usecase);

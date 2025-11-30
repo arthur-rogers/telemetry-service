@@ -2,10 +2,9 @@
 /**
  * @import {ITelemetryEngineData} from "../domain/RuleEngineEntity"
  */
-import { RuleResults } from '../domain/RuleEngineEntity';
-import { RulesRepositoryPort } from '../ports/driven/RulesRepository';
-import { IRunRulesPort } from '../ports/driving/RunRulesPort';
-import { TelemetryRuleEngine } from '../service/telemetry-rule-engine.service';
+import { RulesRepositoryPort } from '../ports/driven/RulesRepository.js';
+import { IRunRulesPort } from '../ports/driving/RunRulesPort.js';
+import { TelemetryRuleEngine } from '../service/telemetry-rule-engine.service.js';
 
 /**
  * @class RunRulesUseCase

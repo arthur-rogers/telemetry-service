@@ -16,8 +16,8 @@
 
 /** @class TelemetryAggregateService */
 import haversineDistance from 'haversine-distance';
-import { MissingValidTelemetryError } from '../../errors/TelemetryError';
-import { ITelemetryAggregateService } from '../interface/ITelemetryAggregateService';
+import { MissingValidTelemetryError } from '../../errors/TelemetryError.js';
+import { ITelemetryAggregateService } from '../interface/ITelemetryAggregateService.js';
 
 /**
  * @implements {ITelemetryAggregateService}

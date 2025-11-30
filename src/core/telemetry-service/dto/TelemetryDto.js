@@ -3,7 +3,7 @@
  * @import {ITelemetry} from "../domain/TelemetryEntity"
  */
 
-import { DTOError } from '../../errors/DtoError';
+import { DTOError } from '../../errors/DtoError.js';
 
 /**
  * @implements {ITelemetry}

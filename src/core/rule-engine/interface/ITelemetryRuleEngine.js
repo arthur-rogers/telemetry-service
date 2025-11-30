@@ -3,7 +3,7 @@
  * @import {ITelemetryEngineData} from "../domain/RuleEngineEntity"
  */
 
-import { RuleEngineResultDTO } from '../dto/RuleEngineResultDto';
+import { RuleEngineResultDTO } from '../dto/RuleEngineResultDto.js';
 
 /**@interface ITelemetryRuleEngine */
 export class ITelemetryRuleEngine {

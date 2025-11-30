@@ -6,7 +6,7 @@ import {
   getPostgresHost,
   getPostgresPassword,
   getPostgresUser,
-} from '../../../../env/environment';
+} from '../../../../env/environment.js';
 
 const user = getPostgresUser();
 const password = getPostgresPassword();
