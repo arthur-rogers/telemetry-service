@@ -11,7 +11,7 @@ export const Telemetry = sequelize.define(
       autoIncrement: true,
     },
     sessionId: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(40),
       field: 'session_id',
       allowNull: false,
     },
@@ -106,5 +106,6 @@ export const Telemetry = sequelize.define(
   },
   {
     tableName: 'telemetry',
+    timestamps: false,
   }
 );
