@@ -6,11 +6,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 describe('Test postgres connection and model', () => {
   /** @type {string} */
-  let sessionId;
+  const sessionId = uuidv4();
   beforeAll(async () => {
     await sequelize.authenticate();
     await Telemetry.sync();
-    sessionId = uuidv4();
   });
 
   afterAll(async () => {
