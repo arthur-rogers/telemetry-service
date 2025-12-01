@@ -24,6 +24,10 @@ export const Telemetry = sequelize.define(
       type: DataTypes.DATE,
       allowNull: false,
       field: '_timestamp',
+      get() {
+        const raw = this.getDataValue('timestamp');
+        return raw ? raw.toISOString() : null;
+      },
     },
     speed: {
       type: DataTypes.DECIMAL(5, 2),
@@ -99,7 +103,7 @@ export const Telemetry = sequelize.define(
         }
       },
       get() {
-        return this.getDataValue('effectedBy').split(',');
+        return this.getDataValue('effectedBy')?.split(',');
       },
       field: 'effected_by',
     },
