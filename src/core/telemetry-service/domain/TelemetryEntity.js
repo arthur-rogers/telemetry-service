@@ -13,6 +13,7 @@
  * @property {number} engineTemp
  * @property {number} fuelLevel
  * @property {ILocation} location
+ * @property {string} [sessionId]
  */
 
 /**
@@ -56,6 +57,13 @@
  * @property {number} lng
  * @property {string} [reason]
  * @property {Array<string>} [effectedBy]
+ */
+
+/**
+ * @typedef {Object} TelemetryResult
+ * @property {string} result
+ * @property {string} [reason]
+ * @property {string} sessionId
  */
 
 export {};

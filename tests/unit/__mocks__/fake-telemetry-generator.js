@@ -8,9 +8,10 @@ import { TelemetryPersistentDTO } from '../../../src/core/telemetry-service/dto/
  *
  * @param {{lat: number, lng: number}} initCoordinates
  * @param {string} vehicleId
+ * @param {string} [sessionId]
  * @returns {TelemetryDTO}
  */
-export const createInitData = (initCoordinates, vehicleId) => {
+export const createInitData = (initCoordinates, vehicleId, sessionId) => {
   return new TelemetryDTO({
     vehicleId,
     speed: faker.number.int({ min: 1, max: 5 }),
@@ -18,6 +19,7 @@ export const createInitData = (initCoordinates, vehicleId) => {
     fuelLevel: faker.number.float({ min: 20, max: 99 }),
     timestamp: new Date().toISOString(),
     location: initCoordinates,
+    sessionId,
   });
 };
 

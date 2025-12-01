@@ -24,18 +24,18 @@ export class GetTelemetryAggregateUseCase extends ITelemetryAggregationPort {
   /**
    * @override
    * @param {ITelemetry} incoming
-   * @param {string} sessionId
    * @returns {Promise<ITelemetryAggregated>}
    */
-  async getAggregated(incoming, sessionId) {
+  async getAggregated(incoming) {
     try {
       const aggregationService = new TelemetryAggregateService();
-      const previousTelemetry =
-        await this._reposidory.getPreviousReadingsNotRejected(
-          incoming.vehicleId,
-          sessionId,
-          50
-        );
+      const previousTelemetry = incoming.sessionId
+        ? await this._reposidory.getPreviousReadingsNotRejected(
+            incoming.vehicleId,
+            incoming.sessionId,
+            50
+          )
+        : [];
       const aggrated = aggregationService.getAggregated(
         incoming,
         previousTelemetry

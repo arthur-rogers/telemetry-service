@@ -5,11 +5,13 @@ import { MockTelemetryRepo } from '../../__mocks__/telemetry-repo.mock';
 import { GetTelemetryResultPort } from '../../../../src/core/telemetry-service/ports/driving/GetTelemetryResultPort';
 import { GetTelemetryResultUseCase } from '../../../../src/core/telemetry-service/usecases/GetTelemetryReulstUseCase';
 import { MockRulesRepository } from '../../__mocks__/rules-repo.mock';
+import { TelemetryRepositoryPort } from '../../../../src/core/telemetry-service/ports/driven/TelemetryRepositoryPort';
 
 describe('Telemetry result use case', () => {
   /** @type {GetTelemetryResultPort} */
   let useCase;
 
+  /** @type {TelemetryRepositoryPort} */
   let telemetryRepo;
   let rulesRepo;
 

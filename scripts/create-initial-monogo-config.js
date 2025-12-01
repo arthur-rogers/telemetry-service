@@ -12,5 +12,5 @@ const password = getMongoDBPassword();
 
 process.stdout.write(`
     db = db.getSiblingDB("${dbName}");
-    db.createUser({user: ${user}, pwd: "${password}", roles: [{role: "readWrite", db: "${dbName}"}]});
+    db.createUser({user: "${user}", pwd: "${password}", roles: [{role: "readWrite", db: "${dbName}"}]});
     `);

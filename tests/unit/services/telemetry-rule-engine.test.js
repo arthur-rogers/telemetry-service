@@ -1,14 +1,14 @@
 //@ts-check
 import { TelemetryRuleEngine } from '../../../src/core/rule-engine/service/telemetry-rule-engine.service';
 import { TelemetryEngineDataDTO } from '../../../src/core/rule-engine/dto/TelemetryEngineDataDto';
-import rules from '../../../static/rules/rules.json';
 import { ITelemetryRuleEngine } from '../../../src/core/rule-engine/interface/ITelemetryRuleEngine';
+import { TelemetryRules } from '../../../static/rules/rules.js';
 
 describe('Telemetry rules engine test', () => {
   /** @type {ITelemetryRuleEngine} */
   let service;
   beforeEach(() => {
-    service = new TelemetryRuleEngine(rules);
+    service = new TelemetryRuleEngine(TelemetryRules);
   });
 
   it('Should apply rules', async () => {

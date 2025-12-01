@@ -12,6 +12,7 @@ export class RulesRepository extends RulesRepositoryPort {
   }
   /** @override */
   async getRules() {
-    return JsonRuleModel.find();
+    const rules = await JsonRuleModel.find();
+    return rules.map((item) => item.toObject());
   }
 }

@@ -1,4 +1,28 @@
 services:
+  app-server:
+    build:
+      context: .
+    container_name: "telemetry-app-server"
+    restart: always
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      PG_DATABASE: ${PG_DATABASE}
+      PG_USERNAME: ${PG_USERNAME}
+      PG_PASSWORD: ${PG_PASSWORD}
+      PG_PORT: ${PG_PORT}
+      PG_HOST: ${PG_HOST}
+      MONGODB_USERNAME: ${MONGODB_USERNAME}
+      MONGODB_PASSWORD: ${MONGODB_PASSWORD}
+      MONGODB_DATABASE_NAME: ${MONGODB_DATABASE_NAME}
+      MONGODB_HOST: ${MONGODB_HOST}
+      MONGODB_PORT: ${MONGODB_PORT}
+      MONGODB_RULES_COLLECTION: ${MONGODB_RULES_COLLECTION}
+      PORT: ${PORT}
+    ports:
+      - 3002:${PORT}
+    depends_on:
+      - postgresdb
+      - mongo
   postgresdb:
     image: postgres
     container_name: telemetry-app-postgres
@@ -7,7 +31,7 @@ services:
       POSTGRES_USER: ${PG_ROOT_USER}
       POSTGRES_PASSWORD: ${PG_ROOT_PASSWORD}
     ports:
-      - ${PG_PORT}:5432
+      - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql
       - ./postgres-init:/docker-entrypoint-initdb.d
@@ -25,7 +49,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
     ports:
-      - ${MONGODB_PORT}:27017
+      - 27017:27017
     volumes:
       - mongo_data:/data/db
       - ./mongo-init:/docker-entrypoint-initdb.d

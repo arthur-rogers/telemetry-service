@@ -5,13 +5,18 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start:local": "docker compose --env-file .env up -d --force-recreate",
     "docs": "jsdoc -c jsdoc.json",
     "test": "dotenv -e ./.env -- node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:unit": "npm run test tests/unit",
     "test:integration": "npm run test tests/integration",
-    "mongo:init": "mkdir -p mongo-init && node script/create-initial-monogo-config.js > ./mongo-init/init.js",
-    "pg:init": "mkdir -p postgres-init && node script/create-initial-pg-configs.js > ./postgres-init/init.sql",
-    "db:initial-config": "npm run mongo:init && npm run pg:init"
+    "mongo:init": "mkdir -p mongo-init && node scripts/create-initial-monogo-config.js > ./mongo-init/init.js",
+    "pg:init": "mkdir -p postgres-init && node scripts/create-initial-pg-configs.js > ./postgres-init/init.sql",
+    "db:initial-config": "npm run mongo:init && npm run pg:init",
+    "docker:logs:server": "docker logs --follow telemetry-app-server",
+    "docker:logs:mongo": "docker logs --follow telemetry-app-mongo",
+    "docker:logs:postgres": "docker logs --follow telemetry-app-postgres",
+    "docker:build": "docker compose build --no-cache"
   },
   "repository": {
     "type": "git",
@@ -29,6 +34,7 @@
     "dotenv-cli": "^11.0.0",
     "jest": "^30.2.0",
     "jsdoc": "^4.0.5",
+    "nodemon": "^3.1.11",
     "sequelize-cli": "^6.6.3"
   },
   "dependencies": {

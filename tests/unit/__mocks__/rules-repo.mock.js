@@ -1,6 +1,6 @@
 //@ts-check
 import { RulesRepositoryPort } from '../../../src/core/rule-engine/ports/driven/RulesRepository';
-import rules from '../../../static/rules/rules.json';
+import { TelemetryRules } from '../../../static/rules/rules';
 
 /**
  * @class
@@ -12,6 +12,6 @@ export class MockRulesRepository extends RulesRepositoryPort {
   }
   /** @override */
   async getRules() {
-    return rules;
+    return TelemetryRules;
   }
 }

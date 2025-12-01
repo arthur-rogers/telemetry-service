@@ -17,5 +17,5 @@ CREATE USER ${pgUser} WITH ENCRYPTED PASSWORD '${pgPass}';
 GRANT ALL PRIVILEGES ON DATABASE ${pgDbName} to ${pgUser};
 \\connect ${pgDbName};
 GRANT ALL PRIVILEGES ON SCHEMA public TO ${pgUser};
-ALTER SCHEMA public OWNER TO ${pgUser}
+ALTER SCHEMA public OWNER TO ${pgUser};
 `);

@@ -14,7 +14,7 @@ describe('Test postgres connection and model', () => {
   });
 
   afterAll(async () => {
-    await Telemetry.drop();
+    await Telemetry.destroy({ where: { sessionId } });
     await sequelize.close();
   });
 

@@ -1,8 +1,8 @@
 //@ts-check
 import { getMongoDBConnectionString } from '../../src/env/environment';
 import mongoose from 'mongoose';
-import rules from '../../static/rules/rules.json';
 import { JsonRuleModel } from '../../src/infrastructure/db/mongo/models/JsonRuleModel';
+import { TelemetryRules } from '../../static/rules/rules';
 
 describe('Test mongo connection and model', () => {
   beforeAll(async () => {
@@ -16,7 +16,7 @@ describe('Test mongo connection and model', () => {
   });
 
   it('Should upload rules to db and fetch them', async () => {
-    await JsonRuleModel.insertMany(rules);
+    await JsonRuleModel.insertMany(TelemetryRules);
     const result = await JsonRuleModel.find();
     console.debug(result);
     expect(result).toBeDefined();

@@ -25,7 +25,7 @@ export class TelemetryRepository extends TelemetryRepositoryPort {
   async getPreviousReadings(vehicleId, sessionId, amount) {
     const result = await Telemetry.findAll({
       where: { vehicleId, sessionId },
-      order: ['timestamp', 'DESC'],
+      order: [['timestamp', 'DESC']],
       limit: amount,
     });
     return result.map((item) => new TelemetryPersistentDTO(item.toJSON()));
@@ -40,7 +40,7 @@ export class TelemetryRepository extends TelemetryRepositoryPort {
   async getPreviousReadingsNotRejected(vehicleId, sessionId, amount) {
     const result = await Telemetry.findAll({
       where: { vehicleId, sessionId, status: { [Op.notILike]: 'REJECTED' } },
-      order: ['timestamp', 'DESC'],
+      order: [['timestamp', 'DESC']],
       limit: amount,
     });
     return result.map((item) => new TelemetryPersistentDTO(item.toJSON()));

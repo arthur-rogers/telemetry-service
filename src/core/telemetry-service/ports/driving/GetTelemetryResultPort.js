@@ -1,6 +1,6 @@
 //@ts-check
 /**
- * @import {ITelemetry} from '../../domain/TelemetryEntity'
+ * @import {ITelemetry, TelemetryResult} from '../../domain/TelemetryEntity'
  */
 
 import { RuleEngineResultDTO } from '../../../rule-engine/dto/RuleEngineResultDto.js';
@@ -27,10 +27,9 @@ export class GetTelemetryResultPort {
   /**
    * @abstract
    * @param {ITelemetry} incomingTelemetry
-   * @param {string} sessionId
-   * @returns {Promise<RuleEngineResultDTO>}
+   * @returns {Promise<TelemetryResult>}
    */
-  async getResults(incomingTelemetry, sessionId) {
+  async getResults(incomingTelemetry) {
     throw new Error(`Not implemented!`);
   }
 }

@@ -33,7 +33,7 @@ export const getRulesCollectionName = () => getEnvVar(MONGODB_RULES_COLLECTION);
 export const getMongoDBConnectionString = () =>
   `mongodb://${getEnvVar(MONGO_USER)}:${getEnvVar(MONGO_PASSWORD)}@${getEnvVar(
     MONGO_HOST
-  )}:${getEnvVar(MONGODB_PORT)}`;
+  )}:${getEnvVar(MONGODB_PORT)}/${getEnvVar(MONGODB_DATABASE_NAME)}`;
 
 export const getNodeEnv = () => getEnvVar(NODE_ENV);
 export const getMongoDatabaseName = () => getEnvVar(MONGODB_DATABASE_NAME);

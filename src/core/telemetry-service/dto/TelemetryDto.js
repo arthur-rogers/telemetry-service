@@ -57,5 +57,6 @@ export class TelemetryDTO {
     this.engineTemp = data.engineTemp;
     this.fuelLevel = data.fuelLevel;
     this.location = data.location;
+    this.sessionId = data.sessionId;
   }
 }

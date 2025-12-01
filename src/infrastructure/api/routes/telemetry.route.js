@@ -1,4 +1,7 @@
-// @ts-nocheck
+// @ts-check
+/**
+ * @import {RouteShorthandOptions, RouteHandler, FastifyRequest, FastifyReply} from 'fastify'
+ */
 import { controller } from '../../../adapters/driving/TelemetryController.js';
 
 const telemetryResult = {
@@ -10,18 +13,15 @@ const telemetryResult = {
 };
 
 /**
- * @type (import('fastify').RouteShorthandOptions
+ * @type {RouteShorthandOptions}
  */
 const telemetrySchema = {
   schema: {
     response: {
-      200: {
-        type: 'Object',
-        items: telemetryResult,
-      },
+      200: telemetryResult,
     },
     body: {
-      type: 'Object',
+      type: 'object',
       properties: {
         vehicleId: { type: 'string' },
         timestamp: { type: 'string' },
@@ -29,7 +29,7 @@ const telemetrySchema = {
         engineTemp: { type: 'number' },
         fuelLevel: { type: 'number' },
         location: {
-          type: 'Object',
+          type: 'object',
           properties: {
             lat: { type: 'number' },
             lng: { type: 'number' },
@@ -38,7 +38,7 @@ const telemetrySchema = {
       },
     },
     headers: {
-      type: 'Object',
+      type: 'object',
       properties: {
         'x-session-id': { type: 'string' },
       },
@@ -46,11 +46,26 @@ const telemetrySchema = {
   },
 };
 
-export async function telemetryRoutes(fastify, options, done) {
-  fastify.post(`/validate-telemetry`, {
-    handler: controller.bind(controller),
-    schema: telemetrySchema,
-  });
-
-  done();
+// @ts-ignore
+export async function telemetryRoutes(fastify, options) {
+  fastify.post(
+    `/validate-telemetry`,
+    telemetrySchema,
+    /** @type {RouteHandler} */
+    /**
+     *
+     * @param {FastifyRequest} req
+     * @param {FastifyReply} reply
+     */
+    async (req, reply) => {
+      console.log(`request: ${req}`);
+      //@ts-ignore
+      const result = await controller.getResult({
+        // @ts-ignore
+        ...req.body,
+        sessionId: req.headers['x-session-id'],
+      });
+      reply.header('x-session-id', result.headers.XSessionId).send(result.body);
+    }
+  );
 }

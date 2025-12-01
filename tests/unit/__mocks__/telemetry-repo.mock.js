@@ -55,8 +55,10 @@ export class MockTelemetryRepo extends TelemetryRepositoryPort {
   /**
    *
    * @param {ITelemetryPersistent} telemetry
+   * @returns {Promise<ITelemetryPersistent>}
    */
   async save(telemetry) {
     this._data.push(telemetry);
+    return telemetry;
   }
 }

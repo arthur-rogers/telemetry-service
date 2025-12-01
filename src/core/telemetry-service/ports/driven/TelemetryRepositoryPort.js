@@ -32,6 +32,7 @@ export class TelemetryRepositoryPort {
   /**
    * @abstract
    * @param {ITelemetryPersistent} telemetry
+   * @returns {Promise<ITelemetryPersistent>}
    */
   async save(telemetry) {
     throw new Error(`Abstract method must be implemented`);
