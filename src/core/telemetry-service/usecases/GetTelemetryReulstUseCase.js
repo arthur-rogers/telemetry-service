@@ -3,6 +3,7 @@
  * @import {ITelemetry, TelemetryResult} from '../domain/TelemetryEntity'
  */
 
+import { MissingValidTelemetryError } from '../../errors/TelemetryError.js';
 import { RulesRepositoryPort } from '../../rule-engine/ports/driven/RulesRepository.js';
 import { RunRulesUseCase } from '../../rule-engine/usecases/RunRulesUseCase.js';
 import { TelemetryRepositoryPort } from '../ports/driven/TelemetryRepositoryPort.js';
@@ -51,6 +52,14 @@ export class GetTelemetryResultUseCase extends GetTelemetryResultPort {
       });
       return { ...result, sessionId };
     } catch (err) {
+      if (err instanceof MissingValidTelemetryError) {
+        return {
+          result: 'CRITICAL',
+          reason:
+            'Too many previous readings were rejected. New session will be initiated',
+          sessionId: uuidv4(),
+        };
+      }
       throw new Error(`Telemetry processing error, ${err}`);
     }
   }

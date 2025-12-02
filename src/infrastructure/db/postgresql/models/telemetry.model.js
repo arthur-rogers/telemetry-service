@@ -99,7 +99,7 @@ export const Telemetry = sequelize.define(
       type: DataTypes.STRING(50),
       set(value) {
         if (Array.isArray(value)) {
-          this.setDataValue('effectedBy', value.join(','));
+          this.setDataValue('effectedBy', [...new Set(value)].join(','));
         }
       },
       get() {

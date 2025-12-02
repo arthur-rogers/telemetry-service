@@ -48,7 +48,7 @@ export class TelemetryAggregateService extends ITelemetryAggregateService {
       speed: speed,
       prevSpeed: prevAndAvg?.prevSpeed || 0,
       avgSpeed: prevAndAvg?.avgSpeed || speed,
-      speedChange: prevAndAvg?.speedChange || speed,
+      speedChange: prevAndAvg?.speedChange || 0,
       engineTemp: engineTemp,
       prevEngineTemp: prevAndAvg?.prevEngineTemp || 0,
       avgEngineTemp: prevAndAvg?.avgEngineTemp || engineTemp,

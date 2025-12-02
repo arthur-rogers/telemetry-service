@@ -275,7 +275,7 @@ export const TelemetryRules = [
         },
         {
           fact: 'prevTimestamp',
-          operator: 'greaterThanInclusive',
+          operator: 'greaterThan',
           value: { fact: 'timestamp' },
         },
       ],
