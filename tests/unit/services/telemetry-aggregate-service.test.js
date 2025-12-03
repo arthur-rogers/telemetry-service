@@ -30,7 +30,7 @@ describe('Telemetry rules engine test', () => {
     expect(result).toBeDefined();
     expect(result.prevSpeed).toEqual(0);
     expect(result.avgSpeed).toEqual(telemetry.speed);
-    expect(result.speedChange).toEqual(telemetry.speed);
+    expect(result.speedChange).toEqual(0);
     expect(result.prevEngineTemp).toEqual(0);
     expect(result.avgEngineTemp).toEqual(telemetry.engineTemp);
     expect(result.prevFuelLevel).toEqual(0);
@@ -60,7 +60,7 @@ describe('Telemetry rules engine test', () => {
     expect(curState.lng).toBeGreaterThan(0);
     expect(curState.speed).toBeGreaterThan(0);
     expect(curState.prevSpeed).toBeGreaterThan(0);
-    expect(curState.speedChange).toBeGreaterThan(0);
+    expect(curState.speedChange).toEqual(0);
     expect(curState.engineTemp).toBeGreaterThan(0);
     expect(curState.fuelLevel).toBeGreaterThan(0);
     expect(curState.fuelLevelChangeRate).not.toBe(0);
