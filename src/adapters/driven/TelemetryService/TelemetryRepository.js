@@ -54,3 +54,5 @@ export class TelemetryRepository extends TelemetryRepositoryPort {
     return (await Telemetry.create(entity)).toJSON();
   }
 }
+
+export const TelemetryRepo = new TelemetryRepository();

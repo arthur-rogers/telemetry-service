@@ -16,3 +16,5 @@ export class RulesRepository extends RulesRepositoryPort {
     return rules.map((item) => item.toObject());
   }
 }
+
+export const RulesRepo = new RulesRepository();

@@ -2,8 +2,8 @@
 import { TelemetryDTO } from '../../core/telemetry-service/dto/TelemetryDto.js';
 import { GetTelemetryResultPort } from '../../core/telemetry-service/ports/driving/GetTelemetryResultPort.js';
 import { GetTelemetryResultUseCase } from '../../core/telemetry-service/usecases/GetTelemetryReulstUseCase.js';
-import { RulesRepository } from '../driven/RulesEngine/RulesRepository.js';
-import { TelemetryRepository } from '../driven/TelemetryService/TelemetryRepository.js';
+import { RulesRepo } from '../driven/RulesEngine/RulesRepository.js';
+import { TelemetryRepo } from '../driven/TelemetryService/TelemetryRepository.js';
 
 /**
  * @typedef {Object} ControllerResponseHeaders
@@ -61,10 +61,5 @@ class TelemetryController {
   }
 }
 
-const telemetryRepository = new TelemetryRepository();
-const rulesRepository = new RulesRepository();
-const usecase = new GetTelemetryResultUseCase(
-  telemetryRepository,
-  rulesRepository
-);
+const usecase = new GetTelemetryResultUseCase(TelemetryRepo, RulesRepo);
 export const controller = new TelemetryController(usecase);
