@@ -10,6 +10,8 @@
     "test": "dotenv -e ./.env.test -- node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:unit": "npm run test tests/unit",
     "test:integration": "npm run test tests/integration",
+    "test:e2e": "npm run test tests/e2e",
+    "test:all": "npm run test tests/",
     "mongo:init": "mkdir -p mongo-init && node scripts/create-initial-monogo-config.js > ./mongo-init/init.js",
     "pg:init": "mkdir -p postgres-init && node scripts/create-initial-pg-configs.js > ./postgres-init/init.sql",
     "db:initial-config": "npm run mongo:init && npm run pg:init",
