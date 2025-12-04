@@ -11,7 +11,7 @@ This repository is created for test assignment project for company JustSnap
 - [API Reference](#api-reference)
 - [Running an Application](#running-an-application)
 - [Testing](#testing)
-- [Comments](#comments)
+- [Project Status](#project-status)
 
 ## Project Description
 
@@ -236,3 +236,22 @@ npm run test:integration # starting integration tests (database must be running 
 npm run test:e2e  # API test (app must be running in docker)
 npm run test:all # runs all test (app must be running in docker)
 ```
+
+## Project Status
+
+The project is not fully finished yet. Unfortunately not all of the requirements were met. Things to implement:
+
+- Handling database timeouts and disconnect
+- Caching
+- API rate limiting
+- Concurrency and race-condition handling
+- Dependency injection (inversify)
+- Logic for telemetry analysis
+- Authorization and authentication (API key)
+- DB migrations (`sequelize-cli` does not work with ES modules)
+
+Things to improve:
+
+- Use case testing (now it does not cover all possible cases)
+- API testing (lacks validation tests)
+- Rules logic testing (not all scenarios are tested)
