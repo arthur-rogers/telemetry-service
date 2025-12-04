@@ -180,7 +180,7 @@ MONGO_ROOT_USER=root        # User used for container creation and init (do not 
 MONGODB_USERNAME=dev        # Used by app
 MONGODB_PASSWORD=password   # Used by app
 MONGODB_DATABASE_NAME=telemetry_app
-MONGODB_HOST=localhost
+MONGODB_HOST=localhost      # Keep localhost for .env.test but replace with "mongo" in .env
 MONGODB_PORT=27016
 MONGODB_RULES_COLLECTION=telemetry_json_rules
 
