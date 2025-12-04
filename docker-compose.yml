@@ -21,8 +21,10 @@ services:
     ports:
       - 3002:${PORT}
     depends_on:
-      - postgresdb
-      - mongo
+      postgresdb:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
   postgresdb:
     image: postgres
     container_name: telemetry-app-postgres
@@ -53,6 +55,17 @@ services:
     volumes:
       - mongo_data:/data/db
       - ./mongo-init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "bash",
+          "-c",
+          "mongosh --eval 'db.adminCommand({ ping: 1 })' --quiet",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
 volumes:
   postgres_data:
